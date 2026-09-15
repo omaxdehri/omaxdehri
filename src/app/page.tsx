@@ -1,7 +1,7 @@
 import Image from "next/image";
 import {
   Bone, Siren, Scan, Hand, PersonStanding, HeartPulse,
-  Phone, MapPin, Clock, ArrowUpRight, Menu, ShieldCheck, Stethoscope, Star,
+  Phone, MapPin, Clock, ArrowUpRight, ShieldCheck, Stethoscope, Star,
   CheckCircle2, Activity, FileCheck2, Quote
 } from "lucide-react";
 import { Sora, IBM_Plex_Sans, IBM_Plex_Mono, IBM_Plex_Sans_Devanagari } from "next/font/google";
@@ -9,6 +9,7 @@ import InfrastructureSection from "./components/InfrastructureSection";
 import PatientFirstSection from "./components/PatientFirstSection";
 import HeroCarousel from "./components/HeroCarousel";
 import OurDepartmentsSection from "./components/OurDepartmentsSection";
+import Navbar from "./components/Navbar";
 
 /* ---------- Fonts (Optimized with display: swap for instant rendering) ---------- */
 const display = Sora({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-display", display: "swap" });
@@ -328,58 +329,8 @@ export default function Home() {
         })
       }} />
 
-      {/* ---------- Header ---------- */}
-      <header className="sticky top-0 z-50 bg-[#F6FBFD]/95 backdrop-blur border-b border-[#A2DFF7]">
-        <div className="max-w-6xl mx-auto flex items-center justify-between px-5 py-3">
-          <a href="#" className="flex items-center gap-3">
-            <div className="relative w-11 h-11 rounded-xl overflow-hidden border border-[#A2DFF7] bg-white p-0.5 shrink-0 shadow-sm">
-              <Image
-                src={IMG.logo}
-                alt="ORTHO MAX MULTI SPECIALITY HOSPITAL Logo"
-                width={44}
-                height={44}
-                className="w-full h-full object-contain"
-                priority
-              />
-            </div>
-            <div>
-              <span className="font-[family-name:var(--font-display)] font-bold text-lg sm:text-xl text-[#005F6B] leading-none block">
-                ORTHO MAX <span className="text-[#3A9AD9]">MULTI SPECIALITY HOSPITAL</span>
-              </span>
-              <span className="text-[11px] text-[#0A3A40]/80 font-semibold tracking-wide">
-                Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri
-              </span>
-            </div>
-          </a>
-
-          <input type="checkbox" id="nav" className="peer hidden" />
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
-            <a href="#services" className="hover:text-[#007B8A] transition-colors">Services</a>
-            <a href="#conditions" className="hover:text-[#007B8A] transition-colors">Conditions</a>
-            <a href="#doctor" className="hover:text-[#007B8A] transition-colors">Dr. Kumar Anshuman</a>
-            <a href="#facilities" className="hover:text-[#007B8A] transition-colors">Facilities</a>
-            <a href="#reviews" className="hover:text-[#007B8A] transition-colors">Reviews</a>
-            <a href="#faq" className="hover:text-[#007B8A] transition-colors">FAQ</a>
-            <a href="#contact" className="hover:text-[#007B8A] transition-colors">Contact</a>
-          </nav>
-          <a href={`tel:${PHONE}`} className="hidden lg:flex items-center gap-2 bg-[#007B8A] text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#005F6B] transition-colors shadow-sm">
-            <Phone size={16} /> Call {PHONE}
-          </a>
-          <label htmlFor="nav" className="lg:hidden cursor-pointer text-[#005F6B] p-2"><Menu /></label>
-        </div>
-        <nav className="peer-has-[:checked]:flex hidden lg:hidden flex-col gap-4 px-5 pb-5 text-sm font-medium bg-[#F6FBFD] border-t border-[#A2DFF7]/50">
-          <a href="#services" className="pt-2">Services</a>
-          <a href="#conditions">Conditions Treated</a>
-          <a href="#doctor">Dr. Kumar Anshuman</a>
-          <a href="#facilities">Hospital Facilities</a>
-          <a href="#reviews">Patient Reviews</a>
-          <a href="#faq">FAQ</a>
-          <a href="#contact">Visit Us</a>
-          <a href={`tel:${PHONE}`} className="text-[#007B8A] font-semibold flex items-center gap-2">
-            <Phone size={16} /> Call {PHONE}
-          </a>
-        </nav>
-      </header>
+      {/* ---------- Header / Navigation ---------- */}
+      <Navbar phone={PHONE} logo={IMG.logo} />
 
       {/* ---------- Emergency Notice Strip ---------- */}
       <div className="bg-[#005F6B] text-white text-sm">
@@ -402,15 +353,11 @@ export default function Home() {
             <div className="grid lg:grid-cols-[1.35fr_1fr] gap-8 lg:gap-12 items-center">
               {/* Left Column: Hospital Overview & CTAs */}
               <div>
-                {/* Location Badge & Rating Pill */}
-                <div className="flex flex-wrap items-center gap-2.5 mb-4">
+                {/* Location Badge Strip */}
+                <div className="mb-4">
                   <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-[#A2DFF7]/30 text-[#A2DFF7] text-xs font-semibold uppercase tracking-wider">
                     <span className="w-2 h-2 rounded-full bg-[#3A9AD9] animate-ping shrink-0" />
                     Canal Road, Dehri · Rohtas, Bihar
-                  </div>
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold">
-                    <Star size={13} className="fill-amber-400 text-amber-400" />
-                    <span>4.4 / 5.0 Google Rating (10 Reviews)</span>
                   </div>
                 </div>
 
