@@ -1,0 +1,179 @@
+"use client";
+
+import { useState, useEffect, useCallback, useRef } from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+export interface CarouselSlide {
+  img: string;
+  caption: string;
+}
+
+export const HERO_CAROUSEL_SLIDES: CarouselSlide[] = [
+  {
+    img: "/carousel/corousal_front_orthomax_hospital_orthopedic_surgeon_best_doctor_in_bihar.webp",
+    caption: "Ortho Max Multi Speciality Hospital",
+  },
+  {
+    img: "/carousel/02-reception-desk.jpeg",
+    caption: "Reception & Emergency Help Desk",
+  },
+  {
+    img: "/carousel/03-modular-operation-theater.jpeg",
+    caption: "Modular Operation Theatre",
+  },
+  {
+    img: "/carousel/04-trauma-operation-theater.jpeg",
+    caption: "Trauma & Fracture Surgery OT",
+  },
+  {
+    img: "/carousel/05-icu-critical-care.jpeg",
+    caption: "ICU & Critical Care Unit",
+  },
+  {
+    img: "/carousel/06-advanced-digital-xray.jpeg",
+    caption: "Digital X-Ray Facility",
+  },
+  {
+    img: "/carousel/07-physiotherapy-center.jpeg",
+    caption: "Physiotherapy & Rehabilitation Centre",
+  },
+  {
+    img: "/carousel/08-patient-waiting-lounge.jpeg",
+    caption: "Patient Waiting Lounge",
+  },
+  {
+    img: "/carousel/09-pathology-diagnostic-lab.jpeg",
+    caption: "Pathology & Diagnostic Lab",
+  },
+];
+
+interface HeroCarouselProps {
+  phone?: string;
+}
+
+export default function HeroCarousel({}: HeroCarouselProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [loadedIndices, setLoadedIndices] = useState<number[]>([0, 1]);
+  const touchStartX = useRef<number | null>(null);
+
+  const total = HERO_CAROUSEL_SLIDES.length;
+
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => {
+      const next = (prev + 1) % total;
+      setLoadedIndices((current) => Array.from(new Set([...current, next, (next + 1) % total])));
+      return next;
+    });
+  }, [total]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentIndex((prev) => {
+      const p = (prev - 1 + total) % total;
+      setLoadedIndices((current) => Array.from(new Set([...current, p, (p - 1 + total) % total])));
+      return p;
+    });
+  }, [total]);
+
+  // Auto-play timer (4.5s)
+  useEffect(() => {
+    if (isHovered) return;
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 4500);
+
+    return () => clearInterval(timer);
+  }, [isHovered, nextSlide]);
+
+  // Touch swipe support for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 45) {
+      nextSlide();
+    } else if (diff < -45) {
+      prevSlide();
+    }
+    touchStartX.current = null;
+  };
+
+  const currentSlide = HERO_CAROUSEL_SLIDES[currentIndex];
+
+  return (
+    <div
+      className="relative w-full bg-[#021316] select-none group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      aria-label="Ortho Max Multi Speciality Hospital Photo Carousel"
+    >
+      {/* Plain Image Frame */}
+      <div className="relative w-full aspect-[16/9] sm:aspect-[2/1] lg:h-[480px] xl:h-[540px] overflow-hidden bg-black">
+        {/* Slides */}
+        {HERO_CAROUSEL_SLIDES.map((slide, idx) => {
+          const isActive = idx === currentIndex;
+          const shouldRenderImage = loadedIndices.includes(idx) || idx === 0;
+
+          return (
+            <div
+              key={slide.img}
+              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+              }`}
+              aria-hidden={!isActive}
+            >
+              {shouldRenderImage ? (
+                <Image
+                  src={slide.img}
+                  alt={slide.caption}
+                  fill
+                  priority={idx === 0}
+                  loading={idx === 0 ? undefined : "lazy"}
+                  quality={80}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
+                  className="object-cover object-center"
+                />
+              ) : null}
+            </div>
+          );
+        })}
+
+        {/* Left Navigation Arrow Button */}
+        <button
+          onClick={prevSlide}
+          aria-label="Previous Slide"
+          className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-2.5 rounded-full bg-black/45 hover:bg-black/80 text-white border border-white/20 backdrop-blur-sm transition-all hover:scale-110 active:scale-95 shadow-md"
+        >
+          <ChevronLeft size={20} />
+        </button>
+
+        {/* Right Navigation Arrow Button */}
+        <button
+          onClick={nextSlide}
+          aria-label="Next Slide"
+          className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-2.5 rounded-full bg-black/45 hover:bg-black/80 text-white border border-white/20 backdrop-blur-sm transition-all hover:scale-110 active:scale-95 shadow-md"
+        >
+          <ChevronRight size={20} />
+        </button>
+      </div>
+
+      {/* Thin Stripe Just Below Carousel Image Frame with Small Text */}
+      <div className="bg-[#021316] border-t border-[#A2DFF7]/15 px-4 py-2">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-3 text-xs sm:text-[13px] text-slate-300">
+          <p className="font-medium text-white/90 truncate">
+            {currentSlide.caption}
+          </p>
+          <span className="text-[11px] text-[#A2DFF7]/80 shrink-0 font-mono hidden sm:inline">
+            ORTHO MAX MULTI SPECIALITY HOSPITAL
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
