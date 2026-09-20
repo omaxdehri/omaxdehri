@@ -106,15 +106,15 @@ export default function HeroCarousel({}: HeroCarouselProps) {
 
   return (
     <div
-      className="relative w-full bg-[#021316] select-none group"
+      className="relative w-full bg-[#021316] select-none group touch-pan-y"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       aria-label="Ortho Max Multi Speciality Hospital Photo Carousel"
     >
-      {/* Plain Image Frame matching 1920x600 banner aspect ratio on desktop */}
-      <div className="relative w-full aspect-[16/9] sm:aspect-[2/1] md:aspect-[2.5/1] lg:aspect-[1920/600] overflow-hidden bg-black">
+      {/* Responsive Image Frame: fixed comfortable height on mobile, exact 1920x600 aspect ratio on desktop */}
+      <div className="relative w-full h-[220px] xs:h-[260px] sm:h-[320px] md:h-[380px] lg:h-auto lg:aspect-[1920/600] overflow-hidden bg-[#021316]">
         {/* Slides */}
         {HERO_CAROUSEL_SLIDES.map((slide, idx) => {
           const isActive = idx === currentIndex;
@@ -131,19 +131,21 @@ export default function HeroCarousel({}: HeroCarouselProps) {
             >
               {shouldRenderImage ? (
                 isFrontBanner ? (
-                  /* Slide 1: Front Banner — edge-to-edge full width without border */
-                  <Image
-                    src={slide.img}
-                    alt={slide.caption}
-                    fill
-                    priority
-                    unoptimized
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
-                    className="object-cover object-center"
-                  />
+                  /* Slide 1: Front Banner — fully contained on mobile, edge-to-edge on desktop */
+                  <div className="relative w-full h-full flex items-center justify-center bg-[#021316]">
+                    <Image
+                      src={slide.img}
+                      alt={slide.caption}
+                      fill
+                      priority
+                      unoptimized
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
+                      className="object-contain lg:object-cover object-center"
+                    />
+                  </div>
                 ) : (
                   /* Slides 2+: Facility Photos — with elegant border & full-size visibility */
-                  <div className="relative w-full h-full flex items-center justify-center p-2.5 sm:p-4 lg:p-5 bg-[#031B1E]">
+                  <div className="relative w-full h-full flex items-center justify-center p-2 sm:p-3 md:p-4 lg:p-5 bg-[#031B1E]">
                     {/* Ambient subtle blurred background */}
                     <div className="absolute inset-0 overflow-hidden opacity-25">
                       <Image
@@ -177,19 +179,35 @@ export default function HeroCarousel({}: HeroCarouselProps) {
         <button
           onClick={prevSlide}
           aria-label="Previous Slide"
-          className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-2.5 rounded-full bg-black/45 hover:bg-black/80 text-white border border-white/20 backdrop-blur-sm transition-all hover:scale-110 active:scale-95 shadow-md"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-2.5 rounded-full bg-black/55 hover:bg-black/85 text-white border border-white/25 backdrop-blur-sm transition-all hover:scale-110 active:scale-95 shadow-lg"
         >
-          <ChevronLeft size={20} />
+          <ChevronLeft size={18} className="sm:w-5 sm:h-5" />
         </button>
 
         {/* Right Navigation Arrow Button */}
         <button
           onClick={nextSlide}
           aria-label="Next Slide"
-          className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-2.5 rounded-full bg-black/45 hover:bg-black/80 text-white border border-white/20 backdrop-blur-sm transition-all hover:scale-110 active:scale-95 shadow-md"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-2.5 rounded-full bg-black/55 hover:bg-black/85 text-white border border-white/25 backdrop-blur-sm transition-all hover:scale-110 active:scale-95 shadow-lg"
         >
-          <ChevronRight size={20} />
+          <ChevronRight size={18} className="sm:w-5 sm:h-5" />
         </button>
+
+        {/* Dots Pagination Indicators on Mobile & Desktop */}
+        <div className="absolute bottom-2.5 inset-x-0 z-20 flex items-center justify-center gap-1.5 pointer-events-auto">
+          {HERO_CAROUSEL_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentIndex(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === currentIndex
+                  ? "w-6 bg-[#38BDF8] shadow-sm shadow-sky-400/50"
+                  : "w-1.5 bg-white/40 hover:bg-white/70"
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Thin Stripe Just Below Carousel Image Frame with Small Text */}

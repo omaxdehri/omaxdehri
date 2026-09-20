@@ -24,10 +24,10 @@ export default function Navbar({ phone, logo }: NavbarProps) {
 
   return (
     <header className="sticky top-0 z-50 bg-[#F6FBFD]/95 backdrop-blur border-b border-[#A2DFF7]">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-2.5">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-3 sm:px-6 py-2 sm:py-2.5">
         {/* Brand Logo & Name */}
-        <a href="#" className="flex items-center gap-3.5 group shrink-0">
-          <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border-2 border-[#A2DFF7] bg-white p-1 shrink-0 shadow-sm transition-transform group-hover:scale-105">
+        <a href="#" className="flex items-center gap-2.5 sm:gap-3.5 group shrink-0">
+          <div className="relative w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-[#A2DFF7] bg-white p-0.5 sm:p-1 shrink-0 shadow-sm transition-transform group-hover:scale-105">
             <Image
               src={logo}
               alt="ORTHO MAX MULTI SPECIALITY HOSPITAL Logo"
@@ -38,10 +38,10 @@ export default function Navbar({ phone, logo }: NavbarProps) {
             />
           </div>
           <div>
-            <span className="font-[family-name:var(--font-display)] font-bold text-lg sm:text-xl text-[#005F6B] leading-none block">
-              ORTHO MAX <span className="text-[#3A9AD9]">MULTI SPECIALITY HOSPITAL</span>
+            <span className="font-[family-name:var(--font-display)] font-bold text-sm sm:text-lg md:text-xl text-[#005F6B] leading-tight block">
+              ORTHO MAX <span className="text-[#3A9AD9]">MULTI SPECIALITY</span>
             </span>
-            <span className="text-[11px] sm:text-xs text-[#0A3A40]/80 font-semibold tracking-wide block mt-1">
+            <span className="text-[10px] sm:text-xs text-[#0A3A40]/80 font-semibold tracking-wide block mt-0.5">
               Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri
             </span>
           </div>
