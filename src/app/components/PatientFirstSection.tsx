@@ -35,7 +35,7 @@ export default function PatientFirstSection({ waitingImage }: PatientFirstSectio
           Conventional orthopaedic journeys often require an X-ray at one private clinic, blood tests at another lab, and surgery in a distant metro city. At ORTHO MAX MULTI SPECIALITY HOSPITAL, digital X-rays, pathology, modular operation theatre, critical care ICU, and physiotherapy are available together on Canal Road.
         </p>
         <p className="mt-3 text-[#0A3A40] leading-relaxed">
-          This avoids critical treatment delays in trauma cases and allows Dr. Kumar Anshuman (Orthopaedic surgeon | Dehri) to personally monitor your recovery at every step.
+          This avoids critical treatment delays in trauma cases and allows Dr. Kumar Anshuman (Orthopaedic surgeon with 20+ years experience | Dehri) to personally monitor your recovery at every step.
         </p>
         <p className="font-[family-name:var(--font-dev)] mt-4 text-[#007B8A] font-semibold text-lg">
           बेहतरीन ऑर्थोपेडिक इलाज — आपके परिवार के नज़दीक।

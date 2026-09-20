@@ -54,7 +54,7 @@ const LAT = 24.9160041, LNG = 84.1809366;
 export const metadata = {
   title: "ORTHO MAX MULTI SPECIALITY HOSPITAL | Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri",
   description:
-    "ORTHO MAX MULTI SPECIALITY HOSPITAL on Canal Road, Dehri (Rohtas) — comprehensive care by Dr. Kumar Anshuman (MBBS, DNB (Ortho), New Delhi, M.Ch (Ortho), MS (HCM) London) for knee & joint replacement, fracture trauma care, knee & shoulder arthroscopy (ACL/PCL reconstruction), arthritis (गठिया / घुटने में दर्द), spine & sciatica (नस दबना), and post-surgical physiotherapy.",
+    "ORTHO MAX MULTI SPECIALITY HOSPITAL on Canal Road, Dehri (Rohtas) — comprehensive care with 20+ years of surgical expertise by Dr. Kumar Anshuman (MBBS, DNB (Ortho), New Delhi, M.Ch (Ortho), MS (HCM) London) for knee & joint replacement, fracture trauma care, knee & shoulder arthroscopy (ACL/PCL reconstruction), arthritis (गठिया / घुटने में दर्द), spine & sciatica (नस दबना), and post-surgical physiotherapy.",
   keywords: [
     "ORTHO MAX MULTI SPECIALITY HOSPITAL", "Dr Kumar Anshuman", "Orthopaedic surgeon Dehri",
     "Orthopedic Doctor Consultation in Dehri-on-Sone", "Knee Replacement Surgery Dehri-on-Sone",
@@ -69,7 +69,7 @@ export const metadata = {
   ],
   openGraph: {
     title: "ORTHO MAX MULTI SPECIALITY HOSPITAL — Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri",
-    description: "Joint replacement, fracture & trauma, arthroscopy, spine and multi-speciality care for Dehri, Sasaram, Aurangabad and the Sone region.",
+    description: "Joint replacement, fracture & trauma, arthroscopy, spine and multi-speciality care with 20+ years experience for Dehri, Sasaram, Aurangabad and the Sone region.",
     images: [IMG.front],
     locale: "en_IN",
     type: "website",
@@ -229,7 +229,7 @@ const facilities = [
 const stats = [
   { n: "Immediate", l: "Emergency Trauma Care" },
   { n: "100%", l: "In-House Diagnostic Setup" },
-  { n: "15+", l: "Years Surgical Experience" },
+  { n: "20+", l: "Years Surgical Experience" },
   { n: "5000+", l: "Patients Treated & Recovered" },
 ];
 
@@ -317,6 +317,7 @@ export default function Home() {
             "@type": "Physician",
             name: "Dr. Kumar Anshuman",
             jobTitle: "Orthopaedic surgeon",
+            description: "Senior Orthopaedic & Joint Replacement Surgeon with 20+ years of surgical experience",
             medicalSpecialty: "Orthopaedic Surgery, Arthroscopy, Joint Replacement"
           },
         })
@@ -373,7 +374,7 @@ export default function Home() {
 
                 {/* Body Text with integrated keywords */}
                 <p className="mt-3.5 text-sm sm:text-base leading-relaxed text-white/85 max-w-2xl">
-                  Super-specialty knee &amp; hip joint replacement, arthroscopy, sports injury recovery and acute trauma care led by
+                  Super-specialty knee &amp; hip joint replacement, arthroscopy, sports injury recovery and acute trauma care backed by <strong className="text-[#A2DFF7] font-semibold">20+ years of surgical experience</strong> led by
                   <strong className="text-[#A2DFF7] font-semibold"> Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri</strong> (MBBS, DNB (Ortho), New Delhi, M.Ch (Ortho), MS (HCM) London) — equipped with in-house modular OT, ICU, digital X-ray, and physiotherapy.
                 </p>
 
@@ -412,9 +413,14 @@ export default function Home() {
                     />
                   </div>
                   <div>
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#A2DFF7] uppercase tracking-wider bg-[#007B8A]/30 px-2 py-0.5 rounded-md mb-1 border border-[#A2DFF7]/20">
-                      <Stethoscope size={12} /> Lead Orthopaedic Surgeon
-                    </span>
+                    <div className="flex flex-wrap gap-1.5 mb-1.5">
+                      <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#A2DFF7] uppercase tracking-wider bg-[#007B8A]/30 px-2 py-0.5 rounded-md border border-[#A2DFF7]/20">
+                        <Stethoscope size={12} /> Lead Orthopaedic Surgeon
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-300 uppercase tracking-wider bg-amber-400/15 px-2 py-0.5 rounded-md border border-amber-400/30">
+                        <Star size={11} className="fill-amber-300" /> 20+ Years Experience
+                      </span>
+                    </div>
                     <h3 className="font-[family-name:var(--font-display)] text-lg sm:text-xl font-bold text-white leading-snug">
                       Dr. Kumar Anshuman
                     </h3>
@@ -469,14 +475,22 @@ export default function Home() {
               className="w-full h-80 object-cover object-top"
             />
             <div className="p-4 bg-[#F6FBFD] border-t border-[#A2DFF7]/60 text-center">
+              <span className="inline-block bg-[#007B8A]/10 text-[#005F6B] text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1 border border-[#007B8A]/20">
+                20+ Years Surgical Experience
+              </span>
               <p className="font-bold text-[#005F6B] text-base">Dr. Kumar Anshuman</p>
               <p className="text-xs text-[#007B8A] font-semibold mt-0.5">Orthopaedic surgeon | Dehri</p>
             </div>
           </div>
 
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#007B8A]/10 text-[#007B8A] text-xs font-semibold uppercase tracking-wider mb-2">
-              <Stethoscope size={14} /> Lead Orthopaedic Surgeon
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#007B8A]/10 text-[#007B8A] text-xs font-semibold uppercase tracking-wider">
+                <Stethoscope size={14} /> Lead Orthopaedic Surgeon
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-900 text-xs font-bold uppercase tracking-wider">
+                <Star size={13} className="text-amber-600 fill-amber-500" /> 20+ Years Clinical &amp; Surgical Experience
+              </div>
             </div>
 
             <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#062226]">
@@ -490,14 +504,15 @@ export default function Home() {
             </p>
 
             <p className="mt-4 text-[#0A3A40] leading-relaxed">
-              Dr. Kumar Anshuman established <strong>ORTHO MAX MULTI SPECIALITY HOSPITAL</strong> on Canal Road to bring modern, super-specialty joint replacement and orthopaedic trauma surgery to Dehri-on-Sone, Sasaram, Aurangabad, and the entire Rohtas region.
+              With over <strong>20+ years of dedicated clinical and surgical experience</strong> in advanced orthopaedics, Dr. Kumar Anshuman established <strong>ORTHO MAX MULTI SPECIALITY HOSPITAL</strong> on Canal Road to bring modern, super-specialty joint replacement and orthopaedic trauma surgery to Dehri-on-Sone, Sasaram, Aurangabad, and the entire Rohtas region.
             </p>
             <p className="mt-3 text-[#0A3A40] leading-relaxed">
-              With dedicated training in complex trauma, arthroscopic ligament reconstruction (ACL / PCL), and knee &amp; hip replacement, patients receive complete care — from initial clinical diagnosis and digital X-ray imaging to surgery, second opinions, and complete mobility rehabilitation under one roof without needing to travel to Patna or Varanasi.
+              With extensive training and operating experience across premier national institutions (New Delhi) and international programmes (London), he specializes in complex trauma, arthroscopic ligament reconstruction (ACL / PCL), and knee &amp; hip replacement. Patients receive complete care — from initial clinical diagnosis and digital X-ray imaging to surgery, second opinions, and complete mobility rehabilitation under one roof without needing to travel to Patna or Varanasi.
             </p>
 
             <div className="mt-6 grid sm:grid-cols-2 gap-3 text-sm">
               {[
+                "20+ Years Experience in Joint Replacement & Trauma",
                 "Knee & Hip Joint Replacement (TKR)",
                 "Emergency Trauma & Accident Fractures",
                 "Knee Arthroscopy & ACL / PCL Reconstruction",
@@ -505,7 +520,6 @@ export default function Home() {
                 "Shoulder Arthroscopy & Rotator Cuff Repair",
                 "Geriatric Fracture Care & Osteoporosis Therapy",
                 "On-Site Physiotherapy & Post-Surgical Rehab",
-                "Orthopedic Second Opinions for Surgery",
               ].map((t) => (
                 <div key={t} className="flex items-center gap-2 text-[#0A3A40]">
                   <CheckCircle2 size={16} className="text-[#007B8A] shrink-0" />

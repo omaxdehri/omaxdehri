@@ -15,7 +15,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "ORTHO MAX MULTI SPECIALITY HOSPITAL | Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri",
   description:
-    "ORTHO MAX MULTI SPECIALITY HOSPITAL, Canal Road, Dehri-on-Sone (Rohtas) — Leading Orthopaedic, Joint Replacement, Fracture Trauma & Arthroscopy Centre led by Dr. Kumar Anshuman. Specialized care for knee replacement, ACL reconstruction, arthritis (गठिया), sciatica (नस दबना) & physiotherapy.",
+    "ORTHO MAX MULTI SPECIALITY HOSPITAL, Canal Road, Dehri-on-Sone (Rohtas) — Leading Orthopaedic, Joint Replacement, Fracture Trauma & Arthroscopy Centre led by Dr. Kumar Anshuman (20+ Years Surgical Experience). Specialized care for knee replacement, ACL reconstruction, arthritis (गठिया), sciatica (नस दबना) & physiotherapy.",
   keywords: [
     "ORTHO MAX MULTI SPECIALITY HOSPITAL",
     "Dr Kumar Anshuman",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ORTHO MAX MULTI SPECIALITY HOSPITAL | Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri",
     description:
-      "Advanced orthopaedic care, total knee & hip joint replacement, arthroscopy, trauma surgery, and physiotherapy by Dr. Kumar Anshuman at Canal Road, Dehri-on-Sone, Bihar 821307.",
+      "Advanced orthopaedic care, total knee & hip joint replacement, arthroscopy, trauma surgery, and physiotherapy by Dr. Kumar Anshuman (20+ Years Experience) at Canal Road, Dehri-on-Sone, Bihar 821307.",
     type: "website",
     locale: "en_IN",
     siteName: "ORTHO MAX MULTI SPECIALITY HOSPITAL",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ORTHO MAX MULTI SPECIALITY HOSPITAL | Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri",
-    description: "Premier Multi Speciality & Orthopaedic Hospital in Canal Road, Dehri, Rohtas, Bihar 821307.",
+    description: "Premier Multi Speciality & Orthopaedic Hospital in Canal Road, Dehri, Rohtas, Bihar 821307. Led by Dr. Kumar Anshuman with 20+ Years Experience.",
   },
   robots: {
     index: true,
@@ -83,7 +83,7 @@ export default function RootLayout({
               name: "ORTHO MAX MULTI SPECIALITY HOSPITAL",
               alternateName: "Orthomax Hospital Dehri",
               description:
-                "Premier super-specialty orthopaedic hospital and trauma care center in Dehri-on-Sone, Rohtas led by Dr. Kumar Anshuman, Senior Orthopaedic & Joint Replacement Surgeon.",
+                "Premier super-specialty orthopaedic hospital and trauma care center in Dehri-on-Sone, Rohtas led by Dr. Kumar Anshuman, Senior Orthopaedic & Joint Replacement Surgeon with 20+ years of surgical experience.",
               telephone: "+919467029173",
               address: {
                 "@type": "PostalAddress",
@@ -139,6 +139,7 @@ export default function RootLayout({
                 "@type": "Physician",
                 name: "Dr. Kumar Anshuman",
                 jobTitle: "Orthopaedic Surgeon",
+                description: "Senior Orthopaedic & Joint Replacement Surgeon with 20+ years of surgical experience.",
                 medicalSpecialty: [
                   "Orthopaedic Surgery",
                   "Joint Replacement",
