@@ -15,7 +15,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "ORTHO MAX MULTI SPECIALITY HOSPITAL | Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri",
   description:
-    "ORTHO MAX MULTI SPECIALITY HOSPITAL, Canal Road, Dehri-on-Sone (Rohtas) — Leading Orthopaedic, Joint Replacement, Fracture Trauma & Arthroscopy Centre led by Dr. Kumar Anshuman (20+ Years Surgical Experience). Specialized care for knee replacement, ACL reconstruction, arthritis (गठिया), sciatica (नस दबना) & physiotherapy.",
+    "ORTHO MAX MULTI SPECIALITY HOSPITAL, Canal Road, Dehri-on-Sone (Rohtas) — Leading Orthopaedic, Joint Replacement, Fracture Trauma & Arthroscopy Centre led by Dr. Kumar Anshuman (20+ Years Experience). Specialized care for knee replacement, ACL reconstruction, arthritis (गठिया), sciatica (नस दबना) & physiotherapy.",
   keywords: [
     "ORTHO MAX MULTI SPECIALITY HOSPITAL",
     "Dr Kumar Anshuman",

@@ -229,7 +229,7 @@ const facilities = [
 const stats = [
   { n: "Immediate", l: "Emergency Trauma Care" },
   { n: "100%", l: "In-House Diagnostic Setup" },
-  { n: "20+", l: "Years Surgical Experience" },
+  { n: "20+", l: "Years Experience" },
   { n: "5000+", l: "Patients Treated & Recovered" },
 ];
 
@@ -476,7 +476,7 @@ export default function Home() {
             />
             <div className="p-4 bg-[#F6FBFD] border-t border-[#A2DFF7]/60 text-center">
               <span className="inline-block bg-[#007B8A]/10 text-[#005F6B] text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1 border border-[#007B8A]/20">
-                20+ Years Surgical Experience
+                20+ Years l Experience
               </span>
               <p className="font-bold text-[#005F6B] text-base">Dr. Kumar Anshuman</p>
               <p className="text-xs text-[#007B8A] font-semibold mt-0.5">Orthopaedic surgeon | Dehri</p>
