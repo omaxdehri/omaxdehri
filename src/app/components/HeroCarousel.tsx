@@ -6,12 +6,14 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface CarouselSlide {
   img: string;
+  mobileImg?: string;
   caption: string;
 }
 
 export const HERO_CAROUSEL_SLIDES: CarouselSlide[] = [
   {
     img: "/carousel/corousal_front_orthomax_hospital_orthopedic_surgeon_best_doctor_in_bihar.png",
+    mobileImg: "/carousel/corousal_front_orthomax_hospital_orthopedic_surgeon_best_doctor_in_rohtas_mobile.webp",
     caption: "Ortho Max Multi Speciality Hospital",
   },
   {
@@ -113,7 +115,7 @@ export default function HeroCarousel({}: HeroCarouselProps) {
       onTouchEnd={handleTouchEnd}
       aria-label="Ortho Max Multi Speciality Hospital Photo Carousel"
     >
-      {/* Responsive Image Frame: fixed comfortable height on mobile, exact 1920x600 aspect ratio on desktop */}
+      {/* Responsive Image Frame */}
       <div className="relative w-full h-[220px] xs:h-[260px] sm:h-[320px] md:h-[380px] lg:h-auto lg:aspect-[1920/600] overflow-hidden bg-[#021316]">
         {/* Slides */}
         {HERO_CAROUSEL_SLIDES.map((slide, idx) => {
@@ -131,18 +133,33 @@ export default function HeroCarousel({}: HeroCarouselProps) {
             >
               {shouldRenderImage ? (
                 isFrontBanner ? (
-                  /* Slide 1: Front Banner — fully contained on mobile, edge-to-edge on desktop */
-                  <div className="relative w-full h-full flex items-center justify-center bg-[#021316]">
-                    <Image
-                      src={slide.img}
-                      alt={slide.caption}
-                      fill
-                      priority
-                      unoptimized
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
-                      className="object-contain lg:object-cover object-center"
-                    />
-                  </div>
+                  <>
+                    {/* Desktop (lg and up): Edge-to-edge 1920x600 Front Banner */}
+                    <div className="hidden lg:block relative w-full h-full bg-[#021316]">
+                      <Image
+                        src={slide.img}
+                        alt={slide.caption}
+                        fill
+                        priority
+                        unoptimized
+                        sizes="100vw"
+                        className="object-cover object-center"
+                      />
+                    </div>
+
+                    {/* Mobile (< lg): Dedicated Mobile Banner — Full width edge-to-edge without border */}
+                    <div className="block lg:hidden relative w-full h-full bg-[#021316]">
+                      <Image
+                        src={slide.mobileImg || slide.img}
+                        alt={slide.caption}
+                        fill
+                        priority
+                        unoptimized
+                        sizes="100vw"
+                        className="object-cover object-center"
+                      />
+                    </div>
+                  </>
                 ) : (
                   /* Slides 2+: Facility Photos — with elegant border & full-size visibility */
                   <div className="relative w-full h-full flex items-center justify-center p-2 sm:p-3 md:p-4 lg:p-5 bg-[#031B1E]">
@@ -192,22 +209,6 @@ export default function HeroCarousel({}: HeroCarouselProps) {
         >
           <ChevronRight size={18} className="sm:w-5 sm:h-5" />
         </button>
-
-        {/* Dots Pagination Indicators on Mobile & Desktop */}
-        <div className="absolute bottom-2.5 inset-x-0 z-20 flex items-center justify-center gap-1.5 pointer-events-auto">
-          {HERO_CAROUSEL_SLIDES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentIndex(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === currentIndex
-                  ? "w-6 bg-[#38BDF8] shadow-sm shadow-sky-400/50"
-                  : "w-1.5 bg-white/40 hover:bg-white/70"
-              }`}
-            />
-          ))}
-        </div>
       </div>
 
       {/* Thin Stripe Just Below Carousel Image Frame with Small Text */}
