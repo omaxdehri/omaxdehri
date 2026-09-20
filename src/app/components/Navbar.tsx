@@ -24,15 +24,15 @@ export default function Navbar({ phone, logo }: NavbarProps) {
 
   return (
     <header className="sticky top-0 z-50 bg-[#F6FBFD]/95 backdrop-blur border-b border-[#A2DFF7]">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-5 py-3">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-2.5">
         {/* Brand Logo & Name */}
-        <a href="#" className="flex items-center gap-3 group">
-          <div className="relative w-11 h-11 rounded-xl overflow-hidden border border-[#A2DFF7] bg-white p-0.5 shrink-0 shadow-sm transition-transform group-hover:scale-105">
+        <a href="#" className="flex items-center gap-3.5 group shrink-0">
+          <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border-2 border-[#A2DFF7] bg-white p-1 shrink-0 shadow-sm transition-transform group-hover:scale-105">
             <Image
               src={logo}
               alt="ORTHO MAX MULTI SPECIALITY HOSPITAL Logo"
-              width={44}
-              height={44}
+              width={64}
+              height={64}
               className="w-full h-full object-contain"
               priority
             />
@@ -41,32 +41,34 @@ export default function Navbar({ phone, logo }: NavbarProps) {
             <span className="font-[family-name:var(--font-display)] font-bold text-lg sm:text-xl text-[#005F6B] leading-none block">
               ORTHO MAX <span className="text-[#3A9AD9]">MULTI SPECIALITY HOSPITAL</span>
             </span>
-            <span className="text-[11px] text-[#0A3A40]/80 font-semibold tracking-wide block mt-0.5">
+            <span className="text-[11px] sm:text-xs text-[#0A3A40]/80 font-semibold tracking-wide block mt-1">
               Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri
             </span>
           </div>
         </a>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-[#0A3A40] hover:text-[#007B8A] transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+        {/* Desktop Navigation Links & CTA Container */}
+        <div className="hidden lg:flex items-center gap-3 xl:gap-6">
+          <nav className="flex items-center gap-3 xl:gap-5 text-xs xl:text-sm font-semibold whitespace-nowrap">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-[#0A3A40] hover:text-[#007B8A] py-1 px-1.5 transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
 
-        {/* Desktop Call CTA */}
-        <a
-          href={`tel:${phone}`}
-          className="hidden lg:flex items-center gap-2 bg-[#007B8A] text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#005F6B] transition-colors shadow-sm"
-        >
-          <Phone size={16} /> Call {phone}
-        </a>
+          {/* Desktop Call CTA */}
+          <a
+            href={`tel:${phone}`}
+            className="flex items-center gap-2 bg-[#007B8A] text-white px-4 xl:px-5 py-2.5 rounded-full text-xs xl:text-sm font-semibold hover:bg-[#005F6B] transition-colors shadow-sm shrink-0 whitespace-nowrap"
+          >
+            <Phone size={15} /> Call {phone}
+          </a>
+        </div>
 
         {/* Mobile Hamburger Button */}
         <button

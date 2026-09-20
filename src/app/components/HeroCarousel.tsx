@@ -11,7 +11,7 @@ export interface CarouselSlide {
 
 export const HERO_CAROUSEL_SLIDES: CarouselSlide[] = [
   {
-    img: "/carousel/corousal_front_orthomax_hospital_orthopedic_surgeon_best_doctor_in_bihar.webp",
+    img: "/carousel/corousal_front_orthomax_hospital_orthopedic_surgeon_best_doctor_in_bihar.png",
     caption: "Ortho Max Multi Speciality Hospital",
   },
   {
@@ -113,12 +113,13 @@ export default function HeroCarousel({}: HeroCarouselProps) {
       onTouchEnd={handleTouchEnd}
       aria-label="Ortho Max Multi Speciality Hospital Photo Carousel"
     >
-      {/* Plain Image Frame */}
-      <div className="relative w-full aspect-[16/9] sm:aspect-[2/1] lg:h-[480px] xl:h-[540px] overflow-hidden bg-black">
+      {/* Plain Image Frame matching 1920x600 banner aspect ratio on desktop */}
+      <div className="relative w-full aspect-[16/9] sm:aspect-[2/1] md:aspect-[2.5/1] lg:aspect-[1920/600] overflow-hidden bg-black">
         {/* Slides */}
         {HERO_CAROUSEL_SLIDES.map((slide, idx) => {
           const isActive = idx === currentIndex;
           const shouldRenderImage = loadedIndices.includes(idx) || idx === 0;
+          const isFrontBanner = idx === 0;
 
           return (
             <div
@@ -129,16 +130,44 @@ export default function HeroCarousel({}: HeroCarouselProps) {
               aria-hidden={!isActive}
             >
               {shouldRenderImage ? (
-                <Image
-                  src={slide.img}
-                  alt={slide.caption}
-                  fill
-                  priority={idx === 0}
-                  loading={idx === 0 ? undefined : "lazy"}
-                  quality={80}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
-                  className="object-cover object-center"
-                />
+                isFrontBanner ? (
+                  /* Slide 1: Front Banner — edge-to-edge full width without border */
+                  <Image
+                    src={slide.img}
+                    alt={slide.caption}
+                    fill
+                    priority
+                    unoptimized
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
+                    className="object-cover object-center"
+                  />
+                ) : (
+                  /* Slides 2+: Facility Photos — with elegant border & full-size visibility */
+                  <div className="relative w-full h-full flex items-center justify-center p-2.5 sm:p-4 lg:p-5 bg-[#031B1E]">
+                    {/* Ambient subtle blurred background */}
+                    <div className="absolute inset-0 overflow-hidden opacity-25">
+                      <Image
+                        src={slide.img}
+                        alt=""
+                        fill
+                        className="object-cover object-center blur-2xl scale-110"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    {/* Framed full-size photo with border */}
+                    <div className="relative w-full h-full max-w-5xl rounded-xl sm:rounded-2xl border-2 border-[#A2DFF7]/60 shadow-2xl overflow-hidden bg-black/70 backdrop-blur-sm">
+                      <Image
+                        src={slide.img}
+                        alt={slide.caption}
+                        fill
+                        loading="lazy"
+                        quality={85}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
+                        className="object-contain object-center"
+                      />
+                    </div>
+                  </div>
+                )
               ) : null}
             </div>
           );

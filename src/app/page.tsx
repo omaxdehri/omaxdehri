@@ -230,7 +230,7 @@ const stats = [
   { n: "Immediate", l: "Emergency Trauma Care" },
   { n: "100%", l: "In-House Diagnostic Setup" },
   { n: "20+", l: "Years Experience" },
-  { n: "5000+", l: "Patients Treated & Recovered" },
+  { n: "10000+", l: "Patients Treated & Recovered" },
 ];
 
 const faqs = [
@@ -476,7 +476,7 @@ export default function Home() {
             />
             <div className="p-4 bg-[#F6FBFD] border-t border-[#A2DFF7]/60 text-center">
               <span className="inline-block bg-[#007B8A]/10 text-[#005F6B] text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1 border border-[#007B8A]/20">
-                20+ Years l Experience
+                20+ Years Experience
               </span>
               <p className="font-bold text-[#005F6B] text-base">Dr. Kumar Anshuman</p>
               <p className="text-xs text-[#007B8A] font-semibold mt-0.5">Orthopaedic surgeon | Dehri</p>
@@ -874,21 +874,21 @@ export default function Home() {
       <footer className="bg-[#005F6B] text-white">
         <div className="max-w-6xl mx-auto px-5 py-12 grid sm:grid-cols-3 gap-8">
           <div>
-            <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-white p-0.5 shrink-0">
+            <div className="flex items-center gap-3.5">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden bg-white p-1 shrink-0 shadow-md border border-[#A2DFF7]/40">
                 <Image
                   src={IMG.logo}
                   alt="ORTHO MAX MULTI SPECIALITY HOSPITAL Logo"
-                  width={40}
-                  height={40}
+                  width={64}
+                  height={64}
                   className="w-full h-full object-contain"
                 />
               </div>
               <div>
-                <p className="font-[family-name:var(--font-display)] font-bold text-base leading-tight">
+                <p className="font-[family-name:var(--font-display)] font-bold text-base sm:text-lg leading-tight">
                   ORTHO MAX MULTI SPECIALITY HOSPITAL
                 </p>
-                <p className="text-[11px] text-[#A2DFF7] font-semibold mt-0.5">
+                <p className="text-xs text-[#A2DFF7] font-semibold mt-1">
                   Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri
                 </p>
               </div>
