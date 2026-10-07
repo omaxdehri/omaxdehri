@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Maximize2 } from "lucide-react";
+import { FadeUp } from "./MotionWrappers";
 
 const ImageModal = dynamic(() => import("./ImageModal"), { ssr: false });
 
@@ -23,65 +24,69 @@ export default function PatientFirstSection({ waitingImage }: PatientFirstSectio
   ];
 
   return (
-    <section className="max-w-6xl mx-auto px-5 py-16 grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <span className="text-xs font-bold uppercase tracking-wider text-[#007B8A] bg-[#007B8A]/10 px-3 py-1 rounded-full">
-          Patient First Approach
-        </span>
-        <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#062226] mt-3">
-          One Comprehensive Hospital, From First Visit to Discharge
-        </h2>
-        <p className="mt-4 text-[#0A3A40] leading-relaxed">
-          Conventional orthopaedic journeys often require an X-ray at one private clinic, blood tests at another lab, and surgery in a distant metro city. At ORTHO MAX MULTI SPECIALITY HOSPITAL, digital X-rays, pathology, modular operation theatre, critical care ICU, and physiotherapy are available together on Canal Road.
-        </p>
-        <p className="mt-3 text-[#0A3A40] leading-relaxed">
-          This avoids critical treatment delays in trauma cases and allows Dr. Kumar Anshuman (Orthopaedic surgeon with 20+ years experience | Dehri) to personally monitor your recovery at every step.
-        </p>
-        <p className="font-[family-name:var(--font-dev)] mt-4 text-[#007B8A] font-semibold text-lg">
-          बेहतरीन ऑर्थोपेडिक इलाज — आपके परिवार के नज़दीक।
-        </p>
-      </div>
-
-      <div
-        onClick={() => setModalOpen(true)}
-        className="rounded-2xl overflow-hidden border border-[#A2DFF7] shadow-lg bg-slate-900 group cursor-pointer hover:border-[#007B8A] hover:shadow-xl transition-all"
-        title="Click to view full size"
-      >
-        {/* Full 16:9 uncropped aspect ratio matching original 1600x900 resolution */}
-        <div className="relative w-full aspect-video overflow-hidden">
-          <Image
-            src={waitingImage}
-            alt="Patient waiting area at ORTHO MAX MULTI SPECIALITY HOSPITAL, Dehri"
-            fill
-            loading="lazy"
-            quality={75}
-            sizes="(max-width: 768px) 100vw, 600px"
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-          <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <span className="bg-black/75 text-white text-xs px-3.5 py-1.5 rounded-full font-medium flex items-center gap-2 backdrop-blur-sm border border-white/20 shadow-lg">
-              <Maximize2 size={14} /> Click to view full size
-            </span>
-          </div>
-        </div>
-        <div className="p-4 bg-white border-t border-[#A2DFF7] flex items-center justify-between">
-          <p className="text-xs sm:text-sm text-[#0A3A40] font-medium">
-            Comfortable, air-conditioned patient &amp; attendant waiting lounge
-          </p>
-          <span className="text-[11px] font-bold text-[#007B8A] bg-[#007B8A]/10 px-2.5 py-1 rounded-full shrink-0">
-            Canal Road
+    <section className="bg-[#F0F9FF]">
+      <div className="max-w-6xl mx-auto px-5 py-16 grid md:grid-cols-2 gap-12 items-center">
+        <FadeUp>
+          <span className="text-xs font-bold uppercase tracking-wider text-sky-500 bg-sky-100 px-3 py-1 rounded-full">
+            Patient First Approach
           </span>
-        </div>
-      </div>
+          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#1E3A5F] mt-3">
+            One Comprehensive Hospital, From First Visit to Discharge
+          </h2>
+          <p className="mt-4 text-slate-600 leading-relaxed">
+            Conventional orthopaedic journeys often require an X-ray at one private clinic, blood tests at another lab, and surgery in a distant metro city. At ORTHO MAX MULTI SPECIALITY HOSPITAL, digital X-rays, pathology, modular operation theatre, critical care ICU, and physiotherapy are available together on Canal Road.
+          </p>
+          <p className="mt-3 text-slate-600 leading-relaxed">
+            This avoids critical treatment delays in trauma cases and allows Dr. Kumar Anshuman (Orthopaedic surgeon with 20+ years experience | Dehri) to personally monitor your recovery at every step.
+          </p>
+          <p className="font-[family-name:var(--font-dev)] mt-4 text-sky-500 font-semibold text-lg">
+            बेहतरीन ऑर्थोपेडिक इलाज — आपके परिवार के नज़दीक।
+          </p>
+        </FadeUp>
 
-      {modalOpen && (
-        <ImageModal
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          items={waitingModalItem}
-          currentIndex={0}
-        />
-      )}
+        <FadeUp delay={0.15}>
+          <div
+            onClick={() => setModalOpen(true)}
+            className="rounded-2xl overflow-hidden border border-sky-100 shadow-lg bg-sky-50 group cursor-pointer hover:border-sky-300 hover:shadow-xl transition-all"
+            title="Click to view full size"
+          >
+            {/* Full 16:9 uncropped aspect ratio matching original 1600x900 resolution */}
+            <div className="relative w-full aspect-video overflow-hidden">
+              <Image
+                src={waitingImage}
+                alt="Patient waiting area at ORTHO MAX MULTI SPECIALITY HOSPITAL, Dehri"
+                fill
+                loading="lazy"
+                quality={75}
+                sizes="(max-width: 768px) 100vw, 600px"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <span className="bg-black/75 text-white text-xs px-3.5 py-1.5 rounded-full font-medium flex items-center gap-2 backdrop-blur-sm border border-white/20 shadow-lg">
+                  <Maximize2 size={14} /> Click to view full size
+                </span>
+              </div>
+            </div>
+            <div className="p-4 bg-white border-t border-sky-100 flex items-center justify-between">
+              <p className="text-xs sm:text-sm text-slate-600 font-medium">
+                Comfortable, air-conditioned patient &amp; attendant waiting lounge
+              </p>
+              <span className="text-[11px] font-bold text-sky-500 bg-sky-50 px-2.5 py-1 rounded-full shrink-0 border border-sky-200">
+                Canal Road
+              </span>
+            </div>
+          </div>
+        </FadeUp>
+
+        {modalOpen && (
+          <ImageModal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            items={waitingModalItem}
+            currentIndex={0}
+          />
+        )}
+      </div>
     </section>
   );
 }

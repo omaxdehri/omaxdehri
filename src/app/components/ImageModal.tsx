@@ -75,7 +75,7 @@ export default function ImageModal({
         <div className="w-full flex items-center justify-between py-2 px-1 text-white mb-2">
           <div className="flex items-center gap-2">
             {items.length > 1 && (
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-white/15 border border-white/20 text-[#A2DFF7]">
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-white/15 border border-white/20 text-sky-300">
                 {currentIndex + 1} / {items.length}
               </span>
             )}
@@ -86,7 +86,7 @@ export default function ImageModal({
 
           <button
             onClick={onClose}
-            className="p-2 rounded-full bg-white/15 hover:bg-white/30 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#A2DFF7]"
+            className="p-2 rounded-full bg-white/15 hover:bg-white/30 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-sky-300"
             aria-label="Close modal"
           >
             <X size={22} />
@@ -112,7 +112,7 @@ export default function ImageModal({
               {currentItem.label}
             </h3>
             {currentItem.desc && (
-              <p className="text-xs sm:text-sm text-[#A2DFF7] mt-0.5">
+              <p className="text-xs sm:text-sm text-sky-300 mt-0.5">
                 {currentItem.desc}
               </p>
             )}

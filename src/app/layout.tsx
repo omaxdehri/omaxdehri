@@ -161,7 +161,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${plusJakarta.variable} antialiased bg-slate-950 text-slate-100 min-h-screen`}>
+      <body className={`${inter.variable} ${plusJakarta.variable} antialiased bg-white text-slate-800 min-h-screen`}>
         {children}
       </body>
     </html>

@@ -78,15 +78,16 @@ export default function HeroCarousel({}: HeroCarouselProps) {
     });
   }, [total]);
 
-  // Auto-play timer (4.5s)
+  // Auto-play timer: 5 seconds for the first slide, and standard interval (4.5s) for other slides
   useEffect(() => {
     if (isHovered) return;
-    const timer = setInterval(() => {
+    const delay = currentIndex === 0 ? 5000 : 4500;
+    const timer = setTimeout(() => {
       nextSlide();
-    }, 4500);
+    }, delay);
 
-    return () => clearInterval(timer);
-  }, [isHovered, nextSlide]);
+    return () => clearTimeout(timer);
+  }, [isHovered, currentIndex, nextSlide]);
 
   // Touch swipe support for mobile
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -108,7 +109,7 @@ export default function HeroCarousel({}: HeroCarouselProps) {
 
   return (
     <div
-      className="relative w-full bg-[#021316] select-none group touch-pan-y"
+      className="relative w-full bg-[#1E3A5F] select-none group touch-pan-y"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onTouchStart={handleTouchStart}
@@ -116,7 +117,7 @@ export default function HeroCarousel({}: HeroCarouselProps) {
       aria-label="Ortho Max Multi Speciality Hospital Photo Carousel"
     >
       {/* Responsive Image Frame */}
-      <div className="relative w-full h-[220px] xs:h-[260px] sm:h-[320px] md:h-[380px] lg:h-auto lg:aspect-[1920/600] overflow-hidden bg-[#021316]">
+      <div className="relative w-full h-[220px] xs:h-[260px] sm:h-[320px] md:h-[380px] lg:h-auto lg:aspect-[1920/600] overflow-hidden bg-[#1E3A5F]">
         {/* Slides */}
         {HERO_CAROUSEL_SLIDES.map((slide, idx) => {
           const isActive = idx === currentIndex;
@@ -135,7 +136,7 @@ export default function HeroCarousel({}: HeroCarouselProps) {
                 isFrontBanner ? (
                   <>
                     {/* Desktop (lg and up): Edge-to-edge 1920x600 Front Banner */}
-                    <div className="hidden lg:block relative w-full h-full bg-[#021316]">
+                    <div className="hidden lg:block relative w-full h-full bg-[#1E3A5F]">
                       <Image
                         src={slide.img}
                         alt={slide.caption}
@@ -148,7 +149,7 @@ export default function HeroCarousel({}: HeroCarouselProps) {
                     </div>
 
                     {/* Mobile (< lg): Dedicated Mobile Banner — Full width edge-to-edge without border */}
-                    <div className="block lg:hidden relative w-full h-full bg-[#021316]">
+                    <div className="block lg:hidden relative w-full h-full bg-[#1E3A5F]">
                       <Image
                         src={slide.mobileImg || slide.img}
                         alt={slide.caption}
@@ -162,7 +163,7 @@ export default function HeroCarousel({}: HeroCarouselProps) {
                   </>
                 ) : (
                   /* Slides 2+: Facility Photos — with elegant border & full-size visibility */
-                  <div className="relative w-full h-full flex items-center justify-center p-2 sm:p-3 md:p-4 lg:p-5 bg-[#031B1E]">
+                  <div className="relative w-full h-full flex items-center justify-center p-2 sm:p-3 md:p-4 lg:p-5 bg-[#162D4A]">
                     {/* Ambient subtle blurred background */}
                     <div className="absolute inset-0 overflow-hidden opacity-25">
                       <Image
@@ -174,7 +175,7 @@ export default function HeroCarousel({}: HeroCarouselProps) {
                       />
                     </div>
                     {/* Framed full-size photo with border */}
-                    <div className="relative w-full h-full max-w-5xl rounded-xl sm:rounded-2xl border-2 border-[#A2DFF7]/60 shadow-2xl overflow-hidden bg-black/70 backdrop-blur-sm">
+                    <div className="relative w-full h-full max-w-5xl rounded-xl sm:rounded-2xl border-2 border-sky-400/40 shadow-2xl overflow-hidden bg-black/50 backdrop-blur-sm">
                       <Image
                         src={slide.img}
                         alt={slide.caption}
@@ -212,12 +213,12 @@ export default function HeroCarousel({}: HeroCarouselProps) {
       </div>
 
       {/* Thin Stripe Just Below Carousel Image Frame with Small Text */}
-      <div className="bg-[#021316] border-t border-[#A2DFF7]/15 px-4 py-2">
+      <div className="bg-[#1E3A5F] border-t border-sky-400/20 px-4 py-2">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-3 text-xs sm:text-[13px] text-slate-300">
           <p className="font-medium text-white/90 truncate">
             {currentSlide.caption}
           </p>
-          <span className="text-[11px] text-[#A2DFF7]/80 shrink-0 font-mono hidden sm:inline">
+          <span className="text-[11px] text-sky-300 shrink-0 font-mono hidden sm:inline">
             ORTHO MAX MULTI SPECIALITY HOSPITAL
           </span>
         </div>

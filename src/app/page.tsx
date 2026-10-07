@@ -1,15 +1,21 @@
 import Image from "next/image";
 import {
   Bone, Siren, Scan, Hand, PersonStanding, HeartPulse,
-  Phone, MapPin, Clock, ArrowUpRight, ShieldCheck, Stethoscope, Star,
+  Phone, MapPin, Clock, ArrowUpRight, Stethoscope, Star,
   CheckCircle2, Activity, FileCheck2, Quote
 } from "lucide-react";
 import { Sora, IBM_Plex_Sans, IBM_Plex_Mono, IBM_Plex_Sans_Devanagari } from "next/font/google";
 import InfrastructureSection from "./components/InfrastructureSection";
 import PatientFirstSection from "./components/PatientFirstSection";
-import HeroCarousel from "./components/HeroCarousel";
 import OurDepartmentsSection from "./components/OurDepartmentsSection";
 import Navbar from "./components/Navbar";
+import HeroCarousel from "./components/HeroCarousel";
+import HeroSection from "./components/HeroSection";
+import StatsBar from "./components/StatsBar";
+import FAQAccordion from "./components/FAQAccordion";
+import PatientJourney from "./components/PatientJourney";
+import MobileBottomBar from "./components/MobileBottomBar";
+import { FadeUp, StaggerContainer, StaggerChild, AnimatedButton } from "./components/MotionWrappers";
 
 /* ---------- Fonts (Optimized with display: swap for instant rendering) ---------- */
 const display = Sora({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-display", display: "swap" });
@@ -270,13 +276,7 @@ const faqs = [
 
 export default function Home() {
   return (
-    <div className={`${display.variable} ${body.variable} ${mono.variable} ${dev.variable} font-[family-name:var(--font-body)] text-[#062226] bg-[#F6FBFD]`}>
-      <style>{`
-        @keyframes floatSlow { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-        .float-slow{animation:floatSlow 6s ease-in-out infinite}
-        details[open] summary .chev{transform:rotate(180deg)}
-        @media (prefers-reduced-motion: reduce){ .float-slow{animation:none} }
-      `}</style>
+    <div className={`${display.variable} ${body.variable} ${mono.variable} ${dev.variable} font-[family-name:var(--font-body)] text-slate-800 bg-white`}>
 
       {/* JSON-LD Structured Data Schema for Rich Google Snippets */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{
@@ -330,183 +330,127 @@ export default function Home() {
         })
       }} />
 
-      {/* ---------- Header / Navigation ---------- */}
+      {/* ========== 1. Header / Navigation ========== */}
       <Navbar phone={PHONE} logo={IMG.logo} />
 
-      {/* ---------- Emergency Notice Strip ---------- */}
-      <div className="bg-[#005F6B] text-white text-sm">
+      {/* ========== 2. Emergency Notice Strip ========== */}
+      <div className="bg-[#1E3A5F] text-white text-sm">
         <div className="max-w-6xl mx-auto px-5 py-2.5 flex items-center justify-center gap-2 text-center">
-          <Siren size={16} className="text-[#A2DFF7] shrink-0 animate-pulse" />
+          <Siren size={16} className="text-sky-300 shrink-0 animate-pulse" />
           <span>
             Emergency &amp; Trauma Support: Call <a href={`tel:${PHONE}`} className="underline font-semibold tracking-wide ml-1">{PHONE}</a>
           </span>
         </div>
       </div>
 
-      {/* ---------- Hero Section (Carousel First) ---------- */}
-      <section className="relative bg-[#031B1E] text-white">
-        {/* 1. Carousel FIRST right after topnav & emergency notice strip */}
-        <HeroCarousel phone={PHONE} />
+      {/* ========== 3. Hero Carousel (Auto-playing Hospital Slideshow) ========== */}
+      <HeroCarousel phone={PHONE} />
 
-        {/* 2. Hero Headline, Lead Surgeon & Key Metrics */}
-        <div className="relative border-t border-[#A2DFF7]/15 bg-gradient-to-b from-[#031B1E] via-[#062226] to-[#0A3A40]">
-          <div className="max-w-6xl mx-auto px-5 py-10 lg:py-14">
-            <div className="grid lg:grid-cols-[1.35fr_1fr] gap-8 lg:gap-12 items-center">
-              {/* Left Column: Hospital Overview & CTAs */}
-              <div>
-                {/* Location Badge Strip */}
-                <div className="mb-4">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-[#A2DFF7]/30 text-[#A2DFF7] text-xs font-semibold uppercase tracking-wider">
-                    <span className="w-2 h-2 rounded-full bg-[#3A9AD9] animate-ping shrink-0" />
-                    Canal Road, Dehri · Rohtas, Bihar
-                  </div>
-                </div>
+      {/* ========== 4. Split Hero Section ========== */}
+      <HeroSection phone={PHONE} doctorImg={IMG.doctor} hospitalImg={IMG.front} />
 
-                {/* Headline */}
-                <h1 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl lg:text-4xl font-extrabold leading-[1.2] text-white drop-shadow">
-                  ORTHO MAX MULTI SPECIALITY HOSPITAL
-                </h1>
+      {/* ========== 4. Trust Band / Stats ========== */}
+      <section className="max-w-5xl mx-auto px-5 -mt-2 mb-8 relative z-10">
+        <StatsBar stats={stats} />
+      </section>
 
-                {/* Hindi Tagline */}
-                <p className="font-[family-name:var(--font-dev)] text-base sm:text-lg text-[#A2DFF7] font-semibold mt-2.5">
-                  आपके हर कदम को फिर से आसान बनाने का भरोसा !
-                </p>
+      {/* ========== 5. Services Grid ========== */}
+      <section id="services" className="bg-[#F0F9FF]">
+        <div className="max-w-6xl mx-auto px-5 py-16">
+          <FadeUp className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-wider text-sky-500 bg-sky-100 px-3 py-1 rounded-full">
+              Clinical Specialties &amp; Treatments
+            </span>
+            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#1E3A5F] mt-3">
+              Comprehensive Orthopaedic Care in Dehri-on-Sone
+            </h2>
+            <p className="text-sm sm:text-base text-slate-500 mt-2">
+              State-of-the-art operative and non-operative orthopaedic solutions for long-term pain relief and full mobility.
+            </p>
+          </FadeUp>
 
-                {/* Body Text with integrated keywords */}
-                <p className="mt-3.5 text-sm sm:text-base leading-relaxed text-white/85 max-w-2xl">
-                  Super-specialty knee &amp; hip joint replacement, arthroscopy, sports injury recovery and acute trauma care backed by <strong className="text-[#A2DFF7] font-semibold">20+ years of surgical experience</strong> led by
-                  <strong className="text-[#A2DFF7] font-semibold"> Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri</strong> (MBBS, DNB (Ortho), New Delhi, M.Ch (Ortho), MS (HCM) London) — equipped with in-house modular OT, ICU, digital X-ray, and physiotherapy.
-                </p>
-
-                {/* CTA Buttons */}
-                <div className="mt-6 flex flex-wrap items-center gap-3">
-                  <a
-                    href={`tel:${PHONE}`}
-                    className="bg-[#007B8A] hover:bg-[#005F6B] text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2 active:scale-95 transition-all shadow-lg text-sm"
-                  >
-                    <Phone size={16} /> Call OPD / Emergency: {PHONE}
-                  </a>
-                  <a
-                    href="#doctor"
-                    className="border border-[#A2DFF7]/40 text-[#A2DFF7] hover:text-white hover:bg-white/10 px-5 py-3 rounded-full font-semibold active:scale-95 transition-all text-sm"
-                  >
-                    Dr. Kumar Anshuman Profile
-                  </a>
-                  <a
-                    href="#facilities"
-                    className="text-white/80 hover:text-[#A2DFF7] px-3 py-3 text-sm font-medium transition-colors flex items-center gap-1.5"
-                  >
-                    Hospital Facilities <ArrowUpRight size={15} />
-                  </a>
-                </div>
-              </div>
-
-              {/* Right Column: Doctor Credential Highlight Card */}
-              <div className="bg-white/5 border border-[#A2DFF7]/25 rounded-2xl p-5 sm:p-6 backdrop-blur-md shadow-xl flex flex-col justify-between">
-                <div className="flex items-start gap-4">
-                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-[#A2DFF7] shrink-0 bg-slate-800 shadow-md">
-                    <Image
-                      src={IMG.doctor}
-                      alt="Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri"
-                      fill
-                      className="object-cover object-top"
-                    />
-                  </div>
+          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.08}>
+            {services.map(({ icon: Icon, title, tag, text }) => (
+              <StaggerChild key={title}>
+                <div className="bg-white rounded-2xl p-5 border border-sky-100 hover:border-sky-300 hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col justify-between group h-full">
                   <div>
-                    <div className="flex flex-wrap gap-1.5 mb-1.5">
-                      <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#A2DFF7] uppercase tracking-wider bg-[#007B8A]/30 px-2 py-0.5 rounded-md border border-[#A2DFF7]/20">
-                        <Stethoscope size={12} /> Lead Orthopaedic Surgeon
-                      </span>
-                      <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-300 uppercase tracking-wider bg-amber-400/15 px-2 py-0.5 rounded-md border border-amber-400/30">
-                        <Star size={11} className="fill-amber-300" /> 20+ Years Experience
+                    <div className="flex items-center justify-between">
+                      <div className="w-11 h-11 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                        <Icon size={22} />
+                      </div>
+                      <span className="text-[10px] font-bold text-sky-500 bg-sky-50 px-2 py-0.5 rounded-full border border-sky-100">
+                        {tag}
                       </span>
                     </div>
-                    <h3 className="font-[family-name:var(--font-display)] text-lg sm:text-xl font-bold text-white leading-snug">
-                      Dr. Kumar Anshuman
+                    <h3 className="font-[family-name:var(--font-display)] font-bold text-base mt-3.5 text-[#1E3A5F] leading-snug">
+                      {title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#A2DFF7] font-semibold mt-0.5">
-                      Orthopaedic surgeon | Dehri
-                    </p>
-                    <p className="text-xs text-white/70 mt-1 leading-snug">
-                      MBBS · DNB (Ortho), New Delhi · M.Ch (Ortho) · MS (HCM) London · Specialist in Joint Replacement &amp; Trauma
+                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                      {text}
                     </p>
                   </div>
-                </div>
-
-                <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-white/80">
-                  <span className="flex items-center gap-1.5 text-[#A2DFF7]">
-                    <ShieldCheck size={15} /> Verified Orthopaedic Specialist
-                  </span>
-                  <a href={`tel:${PHONE}`} className="font-semibold text-white hover:text-[#A2DFF7] underline underline-offset-2">
-                    Book OPD Slot →
+                  <a href={`tel:${PHONE}`} className="mt-4 pt-3 border-t border-sky-50 inline-flex items-center gap-1.5 text-xs font-semibold text-sky-500 hover:text-sky-600">
+                    Inquire for treatment <ArrowUpRight size={13} />
                   </a>
                 </div>
-              </div>
-            </div>
-
-            {/* Stats Bar */}
-            <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-2xl bg-black/40 border border-[#A2DFF7]/20 backdrop-blur-md">
-              {stats.map((s) => (
-                <div key={s.l} className="text-center sm:text-left px-2">
-                  <p className="font-[family-name:var(--font-display)] text-xl sm:text-2xl font-bold text-[#A2DFF7]">{s.n}</p>
-                  <p className="text-[11px] sm:text-xs text-white/75 mt-0.5 font-medium leading-tight">{s.l}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+              </StaggerChild>
+            ))}
+          </StaggerContainer>
         </div>
       </section>
 
-      {/* ---------- 3. Our Specialities (Angled Split Design) ---------- */}
+      {/* ========== 6. Our Departments ========== */}
       <OurDepartmentsSection />
 
-      {/* ---------- Doctor Profile ---------- */}
-      <section id="doctor" className="bg-white border-y border-[#A2DFF7]">
+      {/* ========== 7. Doctor Bio with Credentials ========== */}
+      <section id="doctor" className="bg-white border-y border-sky-100">
         <div className="max-w-6xl mx-auto px-5 py-16 grid md:grid-cols-[300px_1fr] gap-10 items-start">
-          <div className="rounded-2xl overflow-hidden border-2 border-[#A2DFF7] shadow-md bg-slate-50">
-            <Image
-              src={IMG.doctor}
-              alt="Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri at ORTHO MAX MULTI SPECIALITY HOSPITAL"
-              width={400}
-              height={480}
-              loading="lazy"
-              quality={80}
-              sizes="(max-width: 768px) 100vw, 300px"
-              className="w-full h-80 object-cover object-top"
-            />
-            <div className="p-4 bg-[#F6FBFD] border-t border-[#A2DFF7]/60 text-center">
-              <span className="inline-block bg-[#007B8A]/10 text-[#005F6B] text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1 border border-[#007B8A]/20">
-                20+ Years Experience
-              </span>
-              <p className="font-bold text-[#005F6B] text-base">Dr. Kumar Anshuman</p>
-              <p className="text-xs text-[#007B8A] font-semibold mt-0.5">Orthopaedic surgeon | Dehri</p>
+          <FadeUp>
+            <div className="rounded-2xl overflow-hidden border-2 border-sky-200 shadow-md bg-sky-50">
+              <Image
+                src={IMG.doctor}
+                alt="Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri at ORTHO MAX MULTI SPECIALITY HOSPITAL"
+                width={400}
+                height={480}
+                loading="lazy"
+                quality={80}
+                sizes="(max-width: 768px) 100vw, 300px"
+                className="w-full h-80 object-cover object-top"
+              />
+              <div className="p-4 bg-white border-t border-sky-100 text-center">
+                <span className="inline-block bg-sky-50 text-sky-600 text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1 border border-sky-200">
+                  20+ Years Experience
+                </span>
+                <p className="font-bold text-[#1E3A5F] text-base">Dr. Kumar Anshuman</p>
+                <p className="text-xs text-sky-500 font-semibold mt-0.5">Orthopaedic surgeon | Dehri</p>
+              </div>
             </div>
-          </div>
+          </FadeUp>
 
-          <div>
+          <FadeUp delay={0.15}>
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#007B8A]/10 text-[#007B8A] text-xs font-semibold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-600 text-xs font-semibold uppercase tracking-wider border border-sky-200">
                 <Stethoscope size={14} /> Lead Orthopaedic Surgeon
               </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-900 text-xs font-bold uppercase tracking-wider">
-                <Star size={13} className="text-amber-600 fill-amber-500" /> 20+ Years Clinical &amp; Surgical Experience
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-bold uppercase tracking-wider">
+                <Star size={13} className="text-amber-500 fill-amber-400" /> 20+ Years Clinical &amp; Surgical Experience
               </div>
             </div>
 
-            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#062226]">
+            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#1E3A5F]">
               Dr. Kumar Anshuman
             </h2>
-            <p className="text-[#007B8A] font-bold text-sm sm:text-base mt-1">
+            <p className="text-sky-500 font-bold text-sm sm:text-base mt-1">
               Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri
             </p>
-            <p className="text-xs text-[#0A3A40]/75 font-semibold mt-0.5">
+            <p className="text-xs text-slate-500 font-semibold mt-0.5">
               MBBS, DNB (Ortho), New Delhi · M.Ch (Ortho) · MS (HCM) London
             </p>
 
-            <p className="mt-4 text-[#0A3A40] leading-relaxed">
+            <p className="mt-4 text-slate-600 leading-relaxed">
               With over <strong>20+ years of dedicated clinical and surgical experience</strong> in advanced orthopaedics, Dr. Kumar Anshuman established <strong>ORTHO MAX MULTI SPECIALITY HOSPITAL</strong> on Canal Road to bring modern, super-specialty joint replacement and orthopaedic trauma surgery to Dehri-on-Sone, Sasaram, Aurangabad, and the entire Rohtas region.
             </p>
-            <p className="mt-3 text-[#0A3A40] leading-relaxed">
+            <p className="mt-3 text-slate-600 leading-relaxed">
               With extensive training and operating experience across premier national institutions (New Delhi) and international programmes (London), he specializes in complex trauma, arthroscopic ligament reconstruction (ACL / PCL), and knee &amp; hip replacement. Patients receive complete care — from initial clinical diagnosis and digital X-ray imaging to surgery, second opinions, and complete mobility rehabilitation under one roof without needing to travel to Patna or Varanasi.
             </p>
 
@@ -521,261 +465,233 @@ export default function Home() {
                 "Geriatric Fracture Care & Osteoporosis Therapy",
                 "On-Site Physiotherapy & Post-Surgical Rehab",
               ].map((t) => (
-                <div key={t} className="flex items-center gap-2 text-[#0A3A40]">
-                  <CheckCircle2 size={16} className="text-[#007B8A] shrink-0" />
+                <div key={t} className="flex items-center gap-2 text-slate-600">
+                  <CheckCircle2 size={16} className="text-sky-500 shrink-0" />
                   <span>{t}</span>
                 </div>
               ))}
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a href={`tel:${PHONE}`} className="inline-flex items-center gap-2 bg-[#007B8A] text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-[#005F6B] transition-colors">
+              <AnimatedButton href={`tel:${PHONE}`} className="inline-flex items-center gap-2 bg-[#FF6B6B] text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-[#e85d5d] transition-colors shadow-md">
                 <Phone size={15} /> Book Appointment
-              </a>
-              <div className="text-xs text-[#0A3A40]/80">
-                <p><strong className="text-[#005F6B]">OPD Timings:</strong> 9:30 AM – 1:30 PM &amp; 3:30 PM – 6:00 PM</p>
-                <p className="text-[#007B8A] font-medium">Emergency &amp; Trauma Care: Available 24/7</p>
+              </AnimatedButton>
+              <div className="text-xs text-slate-500">
+                <p><strong className="text-[#1E3A5F]">OPD Timings:</strong> 9:30 AM – 1:30 PM &amp; 3:30 PM – 6:00 PM</p>
+                <p className="text-sky-500 font-medium">Emergency &amp; Trauma Care: Available 24/7</p>
               </div>
             </div>
-          </div>
+          </FadeUp>
         </div>
       </section>
 
-      {/* ---------- Services (Google Business Profile Services Integrated) ---------- */}
-      <section id="services" className="max-w-6xl mx-auto px-5 py-16">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#007B8A] bg-[#007B8A]/10 px-3 py-1 rounded-full">
-            Clinical Specialties &amp; Treatments
-          </span>
-          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#062226] mt-3">
-            Comprehensive Orthopaedic Care in Dehri-on-Sone
-          </h2>
-          <p className="text-sm sm:text-base text-[#0A3A40]/80 mt-2">
-            State-of-the-art operative and non-operative orthopaedic solutions for long-term pain relief and full mobility.
-          </p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map(({ icon: Icon, title, tag, text }) => (
-            <div key={title} className="bg-white rounded-2xl p-5 border border-[#A2DFF7] hover:border-[#3A9AD9] hover:shadow-lg transition-all flex flex-col justify-between group">
-              <div>
-                <div className="flex items-center justify-between">
-                  <div className="w-11 h-11 rounded-xl bg-[#007B8A]/10 flex items-center justify-center text-[#007B8A] group-hover:bg-[#007B8A] group-hover:text-white transition-colors">
-                    <Icon size={22} />
-                  </div>
-                  <span className="text-[10px] font-bold text-[#007B8A] bg-[#007B8A]/10 px-2 py-0.5 rounded-full">
-                    {tag}
-                  </span>
-                </div>
-                <h3 className="font-[family-name:var(--font-display)] font-bold text-base mt-3.5 text-[#062226] leading-snug">
-                  {title}
-                </h3>
-                <p className="text-xs text-[#0A3A40]/80 mt-2 leading-relaxed">
-                  {text}
-                </p>
-              </div>
-              <a href={`tel:${PHONE}`} className="mt-4 pt-3 border-t border-slate-100 inline-flex items-center gap-1.5 text-xs font-semibold text-[#007B8A] hover:text-[#005F6B]">
-                Inquire for treatment <ArrowUpRight size={13} />
-              </a>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ---------- Conditions Treated (Bilingual & Regional Keywords) ---------- */}
-      <section id="conditions" className="bg-white border-y border-[#A2DFF7]">
+      {/* ========== 8. Conditions We Treat ========== */}
+      <section id="conditions" className="bg-[#F0F9FF] border-y border-sky-100">
         <div className="max-w-6xl mx-auto px-5 py-16">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#007B8A] bg-[#007B8A]/10 px-3 py-1 rounded-full">
+          <FadeUp className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-wider text-sky-500 bg-sky-100 px-3 py-1 rounded-full">
               Symptoms &amp; Conditions Treated
             </span>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#062226] mt-3">
+            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#1E3A5F] mt-3">
               Conditions We Frequently Diagnose &amp; Treat
             </h2>
-            <p className="text-sm sm:text-base text-[#0A3A40]/80 mt-2">
+            <p className="text-sm sm:text-base text-slate-500 mt-2">
               Identify your symptoms to see our specialized non-surgical, arthroscopic, and surgical solutions.
             </p>
-          </div>
+          </FadeUp>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.08}>
             {conditions.map((c) => (
-              <div key={c.region} className="bg-[#F6FBFD] rounded-2xl p-6 border border-[#A2DFF7]">
-                <h3 className="font-[family-name:var(--font-display)] font-bold text-base text-[#005F6B] border-b border-[#A2DFF7] pb-2.5">
-                  {c.region}
-                </h3>
-                <ul className="mt-3.5 space-y-2 text-xs sm:text-sm text-[#0A3A40]/90">
-                  {c.items.map((i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="text-[#3A9AD9] font-bold shrink-0 mt-0.5">•</span>
-                      <span>{i}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <StaggerChild key={c.region}>
+                <div className="bg-white rounded-2xl p-6 border border-sky-100 hover:shadow-md transition-shadow h-full">
+                  <h3 className="font-[family-name:var(--font-display)] font-bold text-base text-[#1E3A5F] border-b border-sky-100 pb-2.5">
+                    {c.region}
+                  </h3>
+                  <ul className="mt-3.5 space-y-2 text-xs sm:text-sm text-slate-600">
+                    {c.items.map((i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-sky-500 font-bold shrink-0 mt-0.5">•</span>
+                        <span>{i}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </StaggerChild>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
-      {/* ---------- Care Pathway / Patient Journey ---------- */}
-      <section className="max-w-6xl mx-auto px-5 py-16">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#007B8A] bg-[#007B8A]/10 px-3 py-1 rounded-full">
-            Patient Pathway
-          </span>
-          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#062226] mt-3">
-            From First Consultation to Full Mobility
-          </h2>
-          <p className="text-sm sm:text-base text-[#0A3A40]/80 mt-2">
-            A structured, transparent care process designed for quick healing, comfort, and verified clinical outcomes.
-          </p>
-        </div>
+      {/* ========== 9. Patient Journey / How it Works ========== */}
+      <section className="bg-white">
+        <div className="max-w-6xl mx-auto px-5 py-16">
+          <FadeUp className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-wider text-sky-500 bg-sky-100 px-3 py-1 rounded-full">
+              Patient Pathway
+            </span>
+            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#1E3A5F] mt-3">
+              From First Consultation to Full Mobility
+            </h2>
+            <p className="text-sm sm:text-base text-slate-500 mt-2">
+              A structured, transparent care process designed for quick healing, comfort, and verified clinical outcomes.
+            </p>
+          </FadeUp>
 
-        <ol className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {journey.map((j, i) => (
-            <li key={j.title} className="bg-white p-5 rounded-2xl border border-[#A2DFF7] shadow-sm flex flex-col justify-between">
-              <div>
-                <span className="font-[family-name:var(--font-mono)] text-[#3A9AD9] font-bold text-sm bg-[#A2DFF7]/20 px-2.5 py-1 rounded-md inline-block">
-                  Step 0{i + 1}
-                </span>
-                <h3 className="font-[family-name:var(--font-display)] font-bold text-sm sm:text-base text-[#062226] mt-3 leading-snug">
-                  {j.title}
-                </h3>
-                <p className="text-xs text-[#0A3A40]/80 mt-2 leading-relaxed">
-                  {j.text}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ol>
+          <PatientJourney steps={journey} />
+        </div>
       </section>
 
-      {/* ---------- Facilities Section (Hospital Infrastructure) ---------- */}
+      {/* ========== 10. Facilities Gallery ========== */}
       <InfrastructureSection facilities={facilities} />
 
-      {/* ---------- Why Orthomax (Patient First Approach) ---------- */}
+      {/* ========== 11. Patient-First Section ========== */}
       <PatientFirstSection waitingImage={IMG.waiting1} />
 
-      {/* ---------- Google Reviews & Trust CTA ---------- */}
-      <section id="reviews" className="bg-[#A2DFF7]/20 border-y border-[#A2DFF7]">
+      {/* ========== 12. Testimonials / Google Reviews ========== */}
+      <section id="reviews" className="bg-white border-y border-sky-100">
         <div className="max-w-6xl mx-auto px-5 py-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="max-w-2xl">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="flex text-amber-500">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} size={18} fill="currentColor" />
-                  ))}
+          <FadeUp>
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+              <div className="max-w-2xl">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="flex text-amber-500">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} size={18} fill="currentColor" />
+                    ))}
+                  </div>
+                  <span className="font-bold text-[#1E3A5F] text-sm">4.4 / 5.0 Rating</span>
+                  <span className="text-xs text-slate-500 font-medium">(10+ Google Reviews)</span>
                 </div>
-                <span className="font-bold text-[#062226] text-sm">4.4 / 5.0 Rating</span>
-                <span className="text-xs text-[#0A3A40]/70 font-medium">(10+ Google Reviews)</span>
+                <h2 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-bold text-[#1E3A5F]">
+                  Trusted Orthopaedic &amp; Joint Replacement Care in Rohtas
+                </h2>
+                <div className="mt-4 grid sm:grid-cols-2 gap-3">
+                  <div className="bg-sky-50/80 p-3.5 rounded-xl border border-sky-100 text-xs text-slate-600 flex items-start gap-2 shadow-sm">
+                    <Quote size={16} className="text-sky-500 shrink-0 mt-0.5" />
+                    <p>
+                      <em>&ldquo;Thanks for your service, had pain in the knee but now completely recovered.&rdquo;</em>
+                    </p>
+                  </div>
+                  <div className="bg-sky-50/80 p-3.5 rounded-xl border border-sky-100 text-xs text-slate-600 flex items-start gap-2 shadow-sm">
+                    <Quote size={16} className="text-sky-500 shrink-0 mt-0.5" />
+                    <p>
+                      <em>&ldquo;Best Doctor and hospital in my District (ROHTAS).&rdquo;</em>
+                    </p>
+                  </div>
+                </div>
               </div>
-              <h2 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-bold text-[#062226]">
-                Trusted Orthopaedic &amp; Joint Replacement Care in Rohtas
-              </h2>
-              <div className="mt-4 grid sm:grid-cols-2 gap-3">
-                <div className="bg-white/80 p-3.5 rounded-xl border border-[#A2DFF7]/60 text-xs text-[#0A3A40] flex items-start gap-2 shadow-sm">
-                  <Quote size={16} className="text-[#007B8A] shrink-0 mt-0.5" />
-                  <p>
-                    <em>&ldquo;Thanks for your service, had pain in the knee but now completely recovered.&rdquo;</em>
-                  </p>
-                </div>
-                <div className="bg-white/80 p-3.5 rounded-xl border border-[#A2DFF7]/60 text-xs text-[#0A3A40] flex items-start gap-2 shadow-sm">
-                  <Quote size={16} className="text-[#007B8A] shrink-0 mt-0.5" />
-                  <p>
-                    <em>&ldquo;Best Doctor and hospital in my District (ROHTAS).&rdquo;</em>
-                  </p>
-                </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+                <AnimatedButton
+                  href={MAPS_DIRECTIONS}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2 transition-all shadow-md text-sm"
+                >
+                  Find on Google Maps <ArrowUpRight size={16} />
+                </AnimatedButton>
+                <AnimatedButton
+                  href={`tel:${PHONE}`}
+                  className="bg-white text-[#1E3A5F] border border-sky-200 px-5 py-3 rounded-full font-semibold hover:bg-sky-50 transition-all text-sm flex items-center gap-2"
+                >
+                  <Phone size={15} /> Call {PHONE}
+                </AnimatedButton>
               </div>
             </div>
+          </FadeUp>
+        </div>
+      </section>
 
-            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
-              <a
-                href={MAPS_DIRECTIONS}
+      {/* ========== 13. FAQ Accordion ========== */}
+      <section id="faq" className="bg-[#F0F9FF]">
+        <div className="max-w-4xl mx-auto px-5 py-16">
+          <FadeUp className="text-center mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-sky-500 bg-sky-100 px-3 py-1 rounded-full">
+              Patient Support &amp; Information
+            </span>
+            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#1E3A5F] mt-3">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-2">
+              Clear answers regarding orthopaedic doctor consultations, joint replacement, arthroscopy, and physiotherapy.
+            </p>
+          </FadeUp>
+
+          <FAQAccordion faqs={faqs} />
+        </div>
+      </section>
+
+      {/* ========== 14. CTA Banner ========== */}
+      <FadeUp as="section">
+        <div className="bg-gradient-to-r from-[#1E3A5F] to-sky-500 text-white">
+          <div className="max-w-4xl mx-auto px-5 py-12 text-center">
+            <h2 className="font-[family-name:var(--font-display)] text-2xl sm:text-3xl font-bold">
+              Ready to Move Without Pain?
+            </h2>
+            <p className="text-sky-100 mt-2 text-sm sm:text-base max-w-xl mx-auto">
+              Contact ORTHO MAX MULTI SPECIALITY HOSPITAL for expert orthopaedic consultation, joint replacement, or emergency trauma care.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <AnimatedButton
+                href={`tel:${PHONE}`}
+                className="bg-[#FF6B6B] hover:bg-[#e85d5d] text-white px-7 py-3 rounded-full font-semibold flex items-center gap-2 shadow-lg text-sm transition-colors"
+              >
+                <Phone size={16} /> Call Now: {PHONE}
+              </AnimatedButton>
+              <AnimatedButton
+                href={`https://wa.me/91${PHONE}?text=${encodeURIComponent("Hello ORTHO MAX MULTI SPECIALITY HOSPITAL, I would like to inquire about consultation with Dr. Kumar Anshuman.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#007B8A] hover:bg-[#005F6B] text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2 transition-all shadow-md text-sm"
+                className="bg-[#25D366] hover:bg-[#1ebd59] text-white px-7 py-3 rounded-full font-semibold flex items-center gap-2 shadow-lg text-sm transition-colors"
               >
-                Find on Google Maps <ArrowUpRight size={16} />
-              </a>
-              <a
-                href={`tel:${PHONE}`}
-                className="bg-white text-[#005F6B] border border-[#A2DFF7] px-5 py-3 rounded-full font-semibold hover:bg-slate-50 transition-all text-sm flex items-center gap-2"
-              >
-                <Phone size={15} /> Call {PHONE}
-              </a>
+                <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                </svg>
+                WhatsApp
+              </AnimatedButton>
             </div>
           </div>
         </div>
-      </section>
+      </FadeUp>
 
-      {/* ---------- FAQ ---------- */}
-      <section id="faq" className="max-w-4xl mx-auto px-5 py-16">
-        <div className="text-center mb-10">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#007B8A] bg-[#007B8A]/10 px-3 py-1 rounded-full">
-            Patient Support &amp; Information
-          </span>
-          <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#062226] mt-3">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-xs sm:text-sm text-[#0A3A40]/80 mt-2">
-            Clear answers regarding orthopaedic doctor consultations, joint replacement, arthroscopy, and physiotherapy.
-          </p>
-        </div>
-
-        <div className="divide-y divide-[#A2DFF7] bg-white rounded-2xl p-6 border border-[#A2DFF7] shadow-sm">
-          {faqs.map((f) => (
-            <details key={f.q} className="py-4 group">
-              <summary className="flex items-center justify-between gap-4 cursor-pointer font-bold text-[#062226] list-none text-sm sm:text-base">
-                {f.q}
-                <span className="chev text-[#007B8A] transition-transform shrink-0 font-bold">▾</span>
-              </summary>
-              <p className="mt-3 text-xs sm:text-sm text-[#0A3A40]/85 leading-relaxed">
-                {f.a}
-              </p>
-            </details>
-          ))}
-        </div>
-      </section>
-
-      {/* ---------- Contact & Map ---------- */}
-      <section id="contact" className="bg-gradient-to-b from-[#A2DFF7]/20 to-white border-t border-[#A2DFF7]">
+      {/* ========== 15. Contact & Map ========== */}
+      <section id="contact" className="bg-white border-t border-sky-100">
         <div className="max-w-6xl mx-auto px-5 py-16 grid md:grid-cols-2 gap-10">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#007B8A] bg-[#007B8A]/10 px-3 py-1 rounded-full">
+          <FadeUp>
+            <span className="text-xs font-bold uppercase tracking-wider text-sky-500 bg-sky-100 px-3 py-1 rounded-full">
               Hospital Location &amp; Hours
             </span>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#062226] mt-3">
+            <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold text-[#1E3A5F] mt-3">
               Visit ORTHO MAX MULTI SPECIALITY HOSPITAL
             </h2>
 
-            <div className="mt-6 space-y-4 text-[#0A3A40]">
+            <div className="mt-6 space-y-4 text-slate-600">
               <div className="flex items-start gap-3">
-                <MapPin className="text-[#007B8A] shrink-0 mt-1" size={20} />
+                <MapPin className="text-sky-500 shrink-0 mt-1" size={20} />
                 <div>
-                  <p className="font-semibold text-[#062226]">Address:</p>
+                  <p className="font-semibold text-[#1E3A5F]">Address:</p>
                   <p className="text-sm">{ADDRESS}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <Phone className="text-[#007B8A] shrink-0" size={20} />
+                <Phone className="text-sky-500 shrink-0" size={20} />
                 <div>
-                  <p className="font-semibold text-[#062226]">Helpline / OPD Booking:</p>
-                  <a href={`tel:${PHONE}`} className="text-sm font-bold text-[#007B8A] hover:underline">
+                  <p className="font-semibold text-[#1E3A5F]">Helpline / OPD Booking:</p>
+                  <a href={`tel:${PHONE}`} className="text-sm font-bold text-sky-500 hover:underline">
                     +91 {PHONE}
                   </a>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <Clock className="text-[#007B8A] shrink-0 mt-1" size={20} />
+                <Clock className="text-sky-500 shrink-0 mt-1" size={20} />
                 <div>
-                  <p className="font-semibold text-[#062226]">Hospital &amp; OPD Timings:</p>
-                  <p className="text-sm text-[#0A3A40]">
+                  <p className="font-semibold text-[#1E3A5F]">Hospital &amp; OPD Timings:</p>
+                  <p className="text-sm text-slate-600">
                     <span className="font-semibold">OPD Timings:</span> 9:30 AM – 1:30 PM &amp; 3:30 PM – 6:00 PM
                   </p>
-                  <p className="text-xs text-[#007B8A] font-semibold mt-0.5">
+                  <p className="text-xs text-sky-500 font-semibold mt-0.5">
                     Emergency &amp; Trauma Care: Open 24/7 (All 7 Days)
                   </p>
                 </div>
@@ -783,31 +699,33 @@ export default function Home() {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href={`tel:${PHONE}`} className="inline-flex items-center gap-2 bg-[#007B8A] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#005F6B] transition-colors shadow-sm">
+              <AnimatedButton href={`tel:${PHONE}`} className="inline-flex items-center gap-2 bg-[#FF6B6B] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#e85d5d] transition-colors shadow-md">
                 <Phone size={16} /> Call Now
-              </a>
-              <a href={MAPS_DIRECTIONS} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-[#3A9AD9] text-[#005F6B] px-6 py-3 rounded-full font-semibold hover:bg-[#A2DFF7]/30 transition-colors">
+              </AnimatedButton>
+              <AnimatedButton href={MAPS_DIRECTIONS} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-sky-300 text-[#1E3A5F] px-6 py-3 rounded-full font-semibold hover:bg-sky-50 transition-colors">
                 Get Directions <ArrowUpRight size={16} />
-              </a>
+              </AnimatedButton>
             </div>
-          </div>
+          </FadeUp>
 
-          <div className="rounded-2xl overflow-hidden border border-[#A2DFF7] min-h-[300px] shadow-md">
-            <iframe
-              title="ORTHO MAX MULTI SPECIALITY HOSPITAL location on Canal Road, Dehri"
-              className="w-full h-full min-h-[300px]"
-              loading="lazy"
-              src={`https://www.google.com/maps?q=${LAT},${LNG}&z=17&output=embed`}
-            />
-          </div>
+          <FadeUp delay={0.15}>
+            <div className="rounded-2xl overflow-hidden border border-sky-100 min-h-[300px] shadow-md">
+              <iframe
+                title="ORTHO MAX MULTI SPECIALITY HOSPITAL location on Canal Road, Dehri"
+                className="w-full h-full min-h-[300px]"
+                loading="lazy"
+                src={`https://www.google.com/maps?q=${LAT},${LNG}&z=17&output=embed`}
+              />
+            </div>
+          </FadeUp>
         </div>
       </section>
 
-      {/* ---------- SEO Services Directory (Google Business Profile Keywords) ---------- */}
-      <section className="bg-[#031B1E] text-white border-t border-[#A2DFF7]/20 py-12">
+      {/* ========== SEO Services Directory (Google Business Profile Keywords) ========== */}
+      <section className="bg-[#1E3A5F] text-white border-t border-sky-300/20 py-12">
         <div className="max-w-6xl mx-auto px-5">
           <div className="mb-8">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#A2DFF7] bg-white/10 px-3 py-1 rounded-full">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-sky-300 bg-white/10 px-3 py-1 rounded-full">
               Services Directory
             </span>
             <h3 className="font-[family-name:var(--font-display)] text-xl sm:text-2xl font-bold text-white mt-2">
@@ -820,7 +738,7 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-xs text-white/80">
             <div>
-              <p className="font-bold text-[#A2DFF7] text-sm mb-3">Joint Replacement &amp; Surgery</p>
+              <p className="font-bold text-sky-300 text-sm mb-3">Joint Replacement &amp; Surgery</p>
               <ul className="space-y-1.5 text-white/75">
                 <li>• Total Knee Replacement (TKR) in Dehri</li>
                 <li>• Hip Replacement Surgery for Arthritis</li>
@@ -832,7 +750,7 @@ export default function Home() {
             </div>
 
             <div>
-              <p className="font-bold text-[#A2DFF7] text-sm mb-3">Arthroscopy &amp; Sports Injuries</p>
+              <p className="font-bold text-sky-300 text-sm mb-3">Arthroscopy &amp; Sports Injuries</p>
               <ul className="space-y-1.5 text-white/75">
                 <li>• ACL Reconstruction Surgery (Anterior Cruciate)</li>
                 <li>• PCL Reconstruction Surgery for Knee Injuries</li>
@@ -844,7 +762,7 @@ export default function Home() {
             </div>
 
             <div>
-              <p className="font-bold text-[#A2DFF7] text-sm mb-3">Fractures &amp; Spine Care</p>
+              <p className="font-bold text-sky-300 text-sm mb-3">Fractures &amp; Spine Care</p>
               <ul className="space-y-1.5 text-white/75">
                 <li>• Fracture Treatment &amp; Trauma Fixation (चोट)</li>
                 <li>• Complex Broken Bone Surgeries</li>
@@ -856,7 +774,7 @@ export default function Home() {
             </div>
 
             <div>
-              <p className="font-bold text-[#A2DFF7] text-sm mb-3">Physiotherapy &amp; Regions</p>
+              <p className="font-bold text-sky-300 text-sm mb-3">Physiotherapy &amp; Regions</p>
               <ul className="space-y-1.5 text-white/75">
                 <li>• Post-Surgical Knee &amp; Hip Rehab</li>
                 <li>• Physical Therapy for Back &amp; Neck Pain</li>
@@ -870,12 +788,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------- Footer ---------- */}
-      <footer className="bg-[#005F6B] text-white">
+      {/* ========== 16. Footer ========== */}
+      <footer className="bg-[#1E3A5F] text-white border-t border-white/10">
         <div className="max-w-6xl mx-auto px-5 py-12 grid sm:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center gap-3.5">
-              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden bg-white p-1 shrink-0 shadow-md border border-[#A2DFF7]/40">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden bg-white p-1 shrink-0 shadow-md border border-sky-200/40">
                 <Image
                   src={IMG.logo}
                   alt="ORTHO MAX MULTI SPECIALITY HOSPITAL Logo"
@@ -888,19 +806,19 @@ export default function Home() {
                 <p className="font-[family-name:var(--font-display)] font-bold text-base sm:text-lg leading-tight">
                   ORTHO MAX MULTI SPECIALITY HOSPITAL
                 </p>
-                <p className="text-xs text-[#A2DFF7] font-semibold mt-1">
+                <p className="text-xs text-sky-300 font-semibold mt-1">
                   Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri
                 </p>
               </div>
             </div>
-            <p className="text-sm text-[#A2DFF7] mt-3 max-w-xs leading-relaxed">
+            <p className="text-sm text-sky-200 mt-3 max-w-xs leading-relaxed">
               Super-specialty Orthopaedic, Arthroscopy, Fracture &amp; Joint Replacement Centre in Dehri-on-Sone, Rohtas.
             </p>
           </div>
 
           <div>
             <p className="font-semibold mb-3 text-white">Clinical Specialties</p>
-            <ul className="text-sm text-[#A2DFF7] space-y-2">
+            <ul className="text-sm text-sky-200 space-y-2">
               {services.slice(0, 4).map((s) => (
                 <li key={s.title}>
                   <a href="#services" className="hover:text-white transition-colors">{s.title}</a>
@@ -911,7 +829,7 @@ export default function Home() {
 
           <div>
             <p className="font-semibold mb-3 text-white">Emergency &amp; Location</p>
-            <ul className="text-sm text-[#A2DFF7] space-y-2">
+            <ul className="text-sm text-sky-200 space-y-2">
               <li>{ADDRESS}</li>
               <li>
                 <a href={`tel:${PHONE}`} className="hover:text-white font-bold transition-colors">
@@ -921,7 +839,7 @@ export default function Home() {
               <li className="text-xs text-white/80">
                 <span className="font-semibold text-white">OPD:</span> 9:30 AM – 1:30 PM &amp; 3:30 PM – 6:00 PM
               </li>
-              <li className="text-xs text-[#A2DFF7] font-semibold">
+              <li className="text-xs text-sky-300 font-semibold">
                 Emergency &amp; Trauma Care Open 24/7
               </li>
             </ul>
@@ -929,21 +847,21 @@ export default function Home() {
         </div>
 
         <div className="border-t border-white/10">
-          <p className="max-w-6xl mx-auto px-5 py-4 text-xs text-[#A2DFF7] text-center sm:text-left">
+          <p className="max-w-6xl mx-auto px-5 py-4 text-xs text-sky-300 text-center sm:text-left">
             © {new Date().getFullYear()} ORTHO MAX MULTI SPECIALITY HOSPITAL · Dr. Kumar Anshuman | Orthopaedic surgeon | Dehri. All rights reserved.
           </p>
         </div>
       </footer>
 
-      {/* ---------- Floating Quick Action Buttons (WhatsApp & Call) ---------- */}
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-3 items-center">
+      {/* ========== Floating Quick Action Buttons (Desktop only) ========== */}
+      <div className="fixed bottom-5 right-5 z-50 hidden lg:flex flex-col gap-3 items-center">
         {/* WhatsApp Button */}
         <a
           href={`https://wa.me/91${PHONE}?text=${encodeURIComponent("Hello ORTHO MAX MULTI SPECIALITY HOSPITAL, I would like to inquire about consultation with Dr. Kumar Anshuman.")}`}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp with ORTHO MAX MULTI SPECIALITY HOSPITAL"
-          className="w-13 h-13 sm:w-14 sm:h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-xl hover:bg-[#1ebd59] hover:scale-110 active:scale-95 transition-all group relative"
+          className="w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-xl hover:bg-[#1ebd59] hover:scale-110 active:scale-95 transition-all"
         >
           <svg className="w-7 h-7 fill-white" viewBox="0 0 24 24">
             <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
@@ -954,11 +872,17 @@ export default function Home() {
         <a
           href={`tel:${PHONE}`}
           aria-label="Call ORTHO MAX MULTI SPECIALITY HOSPITAL"
-          className="w-13 h-13 sm:w-14 sm:h-14 bg-[#007B8A] text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-[#005F6B] hover:scale-110 active:scale-95 transition-all"
+          className="w-14 h-14 bg-[#FF6B6B] text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-[#e85d5d] hover:scale-110 active:scale-95 transition-all"
         >
           <Phone size={24} />
         </a>
       </div>
+
+      {/* ========== Mobile Bottom Bar ========== */}
+      <MobileBottomBar phone={PHONE} />
+
+      {/* Bottom padding for mobile to prevent content being covered by sticky bar */}
+      <div className="h-16 lg:hidden" />
     </div>
   );
 }
