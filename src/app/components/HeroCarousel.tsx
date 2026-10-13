@@ -116,8 +116,8 @@ export default function HeroCarousel({}: HeroCarouselProps) {
       onTouchEnd={handleTouchEnd}
       aria-label="Ortho Max Multi Speciality Hospital Photo Carousel"
     >
-      {/* Responsive Image Frame */}
-      <div className="relative w-full h-[220px] xs:h-[260px] sm:h-[320px] md:h-[380px] lg:h-auto lg:aspect-[1920/600] overflow-hidden bg-[#1E3A5F]">
+      {/* Responsive Image Frame - Sized to exact 1920x700 aspect ratio so banner is not cropped */}
+      <div className="relative w-full h-[220px] xs:h-[260px] sm:h-[320px] md:h-auto md:aspect-[1920/700] lg:aspect-[1920/700] overflow-hidden bg-[#1E3A5F]">
         {/* Slides */}
         {HERO_CAROUSEL_SLIDES.map((slide, idx) => {
           const isActive = idx === currentIndex;
@@ -135,8 +135,8 @@ export default function HeroCarousel({}: HeroCarouselProps) {
               {shouldRenderImage ? (
                 isFrontBanner ? (
                   <>
-                    {/* Desktop (lg and up): Edge-to-edge 1920x600 Front Banner */}
-                    <div className="hidden lg:block relative w-full h-full bg-[#1E3A5F]">
+                    {/* Desktop & Tablet (md and up): Edge-to-edge 1920x700 Front Banner */}
+                    <div className="hidden md:block relative w-full h-full bg-[#1E3A5F]">
                       <Image
                         src={slide.img}
                         alt={slide.caption}
@@ -148,8 +148,8 @@ export default function HeroCarousel({}: HeroCarouselProps) {
                       />
                     </div>
 
-                    {/* Mobile (< lg): Dedicated Mobile Banner — Full width edge-to-edge without border */}
-                    <div className="block lg:hidden relative w-full h-full bg-[#1E3A5F]">
+                    {/* Mobile (< md): Dedicated Mobile Banner — Full width edge-to-edge without border */}
+                    <div className="block md:hidden relative w-full h-full bg-[#1E3A5F]">
                       <Image
                         src={slide.mobileImg || slide.img}
                         alt={slide.caption}
