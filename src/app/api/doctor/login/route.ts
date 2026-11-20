@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/mongodb";
-import { verifyPassword, createSession, COOKIE_NAME } from "@/lib/auth";
+import { verifyPassword, hashPassword, createSession, COOKIE_NAME } from "@/lib/auth";
 import { ensureDefaultDoctor } from "@/lib/doctor";
 import { ensureDefaultBlogs } from "@/lib/blogs";
 
@@ -31,7 +31,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const isValid = verifyPassword(password, doctor.salt, doctor.passwordHash);
+    let isValid = verifyPassword(password, doctor.salt || "", doctor.passwordHash || "");
+
+    // If admin directly edited the password in MongoDB Atlas with plaintext:
+    if (!isValid && doctor.passwordHash === password) {
+      isValid = true;
+      const { hash, salt } = hashPassword(password);
+      await db.collection("doctors").updateOne(
+        { _id: doctor._id },
+        { $set: { passwordHash: hash, salt, updatedAt: new Date() } }
+      );
+    }
+
     if (!isValid) {
       return NextResponse.json(
         { error: "Invalid credentials. Incorrect password." },

@@ -14,8 +14,17 @@ export function hashPassword(password: string, salt?: string) {
 }
 
 export function verifyPassword(password: string, salt: string, expectedHash: string): boolean {
-  const { hash } = hashPassword(password, salt);
-  return crypto.timingSafeEqual(Buffer.from(hash), Buffer.from(expectedHash));
+  try {
+    const { hash } = hashPassword(password, salt);
+    const hashBuf = Buffer.from(hash);
+    const expectedBuf = Buffer.from(expectedHash || "");
+    if (hashBuf.length !== expectedBuf.length) {
+      return false;
+    }
+    return crypto.timingSafeEqual(hashBuf, expectedBuf);
+  } catch {
+    return false;
+  }
 }
 
 export async function createSession(doctorId: string, email: string, name: string) {
