@@ -10,11 +10,14 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
+    "set-doctor-password": "node scripts/set-doctor-password.mjs",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\""
   },
   "dependencies": {
+    "cloudinary": "^2.11.0",
     "framer-motion": "^14.0.0",
     "lucide-react": "^0.394.0",
+    "mongodb": "^7.8.0",
     "next": "^14.1.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"

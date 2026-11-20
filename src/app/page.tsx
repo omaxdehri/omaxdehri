@@ -13,6 +13,7 @@ import HeroCarousel from "./components/HeroCarousel";
 import HeroSection from "./components/HeroSection";
 import StatsBar from "./components/StatsBar";
 import FAQAccordion from "./components/FAQAccordion";
+import BlogPreviewSection from "./components/BlogPreviewSection";
 import PatientJourney from "./components/PatientJourney";
 import MobileBottomBar from "./components/MobileBottomBar";
 import { FadeUp, StaggerContainer, StaggerChild, AnimatedButton } from "./components/MotionWrappers";
@@ -602,7 +603,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========== 13. FAQ Accordion ========== */}
+      {/* ========== 13. Dr. Kumar Anshuman's Blogs, Articles, Researches & Studies ========== */}
+      <BlogPreviewSection />
+
+      {/* ========== 14. FAQ Accordion ========== */}
       <section id="faq" className="bg-[#F0F9FF]">
         <div className="max-w-4xl mx-auto px-5 py-16">
           <FadeUp className="text-center mb-10">

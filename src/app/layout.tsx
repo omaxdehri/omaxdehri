@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,6 +10,13 @@ const inter = Inter({
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-heading",
+});
+
+const notoDevanagari = Noto_Sans_Devanagari({
+  subsets: ["devanagari"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-devanagari",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -72,8 +79,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
+    <html
+      lang="en"
+      className={`${inter.variable} ${plusJakarta.variable} ${notoDevanagari.variable}`}
+    >
+      <body className="antialiased bg-white text-slate-800 min-h-screen">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -160,8 +170,6 @@ export default function RootLayout({
             }),
           }}
         />
-      </head>
-      <body className={`${inter.variable} ${plusJakarta.variable} antialiased bg-white text-slate-800 min-h-screen`}>
         {children}
       </body>
     </html>
