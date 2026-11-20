@@ -11,6 +11,7 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "set-doctor-password": "node scripts/set-doctor-password.mjs",
+    "seed-db": "node scripts/seed-db.mjs",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\""
   },
   "dependencies": {

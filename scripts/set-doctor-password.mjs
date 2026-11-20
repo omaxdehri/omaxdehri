@@ -29,10 +29,10 @@ if (fs.existsSync(envLocalPath)) {
   }
 }
 
-const mongoUri = process.env.MONGODB_DIRECT_URI || process.env.MONGODB_URI;
+const mongoUri = process.env.MONGODB_URI || process.env.MONGODB_DIRECT_URI;
 
 if (!mongoUri) {
-  console.error("❌ Error: Neither MONGODB_DIRECT_URI nor MONGODB_URI is set in .env.local");
+  console.error("❌ Error: MONGODB_URI is not set in .env.local");
   process.exit(1);
 }
 

@@ -186,6 +186,47 @@ Over 85% of sciatica cases improve without surgery when treated promptly with:
 Visit our outpatient clinic at Ortho Max Hospital Canal Road, Dehri for accurate clinical assessment and spine screening.
 `,
         },
+        {
+          title: "Understanding ACL Injury",
+          slug: "understanding-acl-injury",
+          excerpt:
+            "The Anterior Cruciate Ligament (ACL) is crucial for knee stability. Understand common symptoms, diagnosis, and arthroscopic treatment options.",
+          category: "Knee Arthroscopy",
+          tags: ["ACL Injury", "Knee Pain", "Arthroscopy", "Ligament"],
+          coverImage: "/carousel/03-modular-operation-theater.jpeg",
+          author: {
+            name: "Dr. Kumar Anshuman",
+            title: "Senior Orthopaedic & Joint Replacement Surgeon",
+            avatarUrl: "/Dr._Kumar_Anshuman_mbbs_orthomax_hospital_orthopedic_surgeon_dehri.jpeg",
+          },
+          readTime: "3 min read",
+          published: true,
+          featured: true,
+          views: 95,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          content: `### Understanding ACL Injury
+
+The Anterior Cruciate Ligament (ACL) is an important ligament that provides stability to the knee joint.
+
+#### Common Symptoms:
+- Knee pain and swelling.
+- Popping sensation during injury.
+- Difficulty walking.
+- Knee instability.
+
+---
+
+### Treatment Options
+
+Treatment may include physiotherapy, rehabilitation or arthroscopic ACL reconstruction surgery, depending on the severity of the injury.
+
+Consult an orthopaedic specialist for proper diagnosis and treatment.
+
+**Dr. Kumar Anshuman**  
+ORTHO MAX MULTI SPECIALITY HOSPITAL, Dehri-on-Sone.
+`,
+        },
       ];
 
       await db.collection("blogs").insertMany(sampleBlogs as any);
